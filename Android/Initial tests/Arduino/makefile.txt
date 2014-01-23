@@ -1,0 +1,12 @@
+# Makefile for the Arduino software
+# Requires the packages arduino-mk and arduino-common to be installed on the computer
+
+ARDUINO_DIR  = /usr/share/arduino
+
+#TARGET       = Blink
+#ARDUINO_LIBS = Ethernet Ethernet/utility SPI
+
+BOARD_TAG    = uno
+ARDUINO_PORT = /dev/ttyACM0
+
+include /usr/share/arduino/Arduino.mk
