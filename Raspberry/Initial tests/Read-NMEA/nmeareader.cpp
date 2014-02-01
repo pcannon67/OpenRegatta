@@ -76,7 +76,7 @@ int read(int fd)
         data.append(1,buff[0]);
       }
     }while(bytes>0);
-    data += "\r\n";    
+       
 	printf(data.c_str());
   }
 }
