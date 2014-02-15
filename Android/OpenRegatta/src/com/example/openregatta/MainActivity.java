@@ -2,14 +2,17 @@ package com.example.openregatta;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 
 public class MainActivity extends Activity {
 
@@ -44,6 +47,25 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		FragmentManager mFragmentManager = getFragmentManager();
+	    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+		switch (item.getItemId()) {
+        case (R.id.boat_settings):
+		    fragmentTransaction.addToBackStack(getResources().getString(R.string.boat_settings));
+        	fragmentTransaction.replace(R.id.fragment_container, new BoatPreferences());
+        	fragmentTransaction.commit();
+        	break;
+        case (R.id.network_settings):
+	    	fragmentTransaction.addToBackStack(getResources().getString(R.string.network_settings));
+	    	fragmentTransaction.replace(R.id.fragment_container, new NetworkPreferences());
+	    	fragmentTransaction.commit();
+	    	break;
+		}
+		return false;
+	}
 	
 	public void ShowNextFragment()
 	{

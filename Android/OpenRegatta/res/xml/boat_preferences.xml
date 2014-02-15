@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="@string/boat_settings"
+        android:key="boat_preferences">
+        <Preference
+            android:key="pref_boat_lenght"
+            android:summary="lenght in feets"
+            android:title="Boat Lenght"
+            android:defaultValue="30"/>
+        <Preference 
+            android:key="pref_boat_gps_offset"
+            android:summary="Bow to receiver offset in feets"
+            android:title="GPS offset"
+            android:defaultValue="30"/>
+        <EditTextPreference 
+            android:key="pref_boat_name"
+            android:title="Boat name"
+            android:defaultValue="Argo"/>
+    </PreferenceCategory>
+</PreferenceScreen>
