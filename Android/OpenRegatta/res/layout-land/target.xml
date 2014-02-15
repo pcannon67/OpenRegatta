@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#000000">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/label_target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="Tg"
+            android:textSize="60sp" 
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/textView_target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="58dp"
+            android:text="00.00"
+            android:textStyle="bold"
+            android:textSize="120sp" 
+            android:textColor="#FFFFFF"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/label_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="SOW"
+            android:textSize="60sp" 
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/textView_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="58dp"
+            android:text="00.00"
+            android:textStyle="bold"
+            android:textSize="120sp" 
+            android:textColor="#FFFFFF"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
