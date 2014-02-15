@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="D st"
-            android:textSize="60sp" 
+            android:text="@string/distance_start_line"
+            android:textSize="50sp" 
             android:textColor="#FFFFFF"/>
 
         <TextView
@@ -25,21 +25,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="00.0"
+            android:layout_toLeftOf="@+id/label_boat_length"
+            android:text="@string/default_00.0"
+            android:textColor="#FFFFFF"
             android:textSize="120sp"
-            android:textStyle="bold" 
-            android:textColor="#FFFFFF"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/label_boat_length"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView_distance"
+            android:layout_alignBottom="@+id/textView_distance"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="BL"
-            android:textSize="60sp" 
-            android:textColor="#FFFFFF"/>
+            android:text="@string/boat_lenght_abbrev"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
 
     </RelativeLayout>
 
@@ -54,30 +55,32 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="T st"
-            android:textSize="60sp" 
-            android:textColor="#FFFFFF"/>
+            android:text="@string/eta_start_line"
+            android:textColor="#FFFFFF"
+            android:textSize="50sp" />
 
         <TextView
             android:id="@+id/textView_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="00.0"
+            android:layout_marginRight="24dp"
+            android:layout_toLeftOf="@+id/lable_time_seconds"
+            android:text="@string/default_00.0"
+            android:textColor="#FFFFFF"
             android:textSize="120sp"
-            android:textStyle="bold" 
-            android:textColor="#FFFFFF"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/lable_time_seconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/label_time"
+            android:layout_alignBaseline="@+id/textView_time"
+            android:layout_alignBottom="@+id/textView_time"
             android:layout_alignParentRight="true"
-            android:text="sec"
-            android:textSize="60sp" 
-            android:textColor="#FFFFFF"/>
+            android:text="@string/second_abbrev"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
 
     </RelativeLayout>
 

@@ -1,21 +1,25 @@
-package com.example.openregatta;
+package com.openregatta.fragments;
+
+import com.openregatta.R;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TargetFragment extends MotionFragment {
+public class StartFragment extends MotionFragment {
+
+
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(
-                R.layout.target, container, false);
-        
+                R.layout.start, container, false);
+    
         super.attachDetector(rootView);
         
         return rootView;
     }
-	
+
 }

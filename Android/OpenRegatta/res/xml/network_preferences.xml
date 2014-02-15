@@ -3,13 +3,15 @@
     <PreferenceCategory 
         android:title="@string/network_settings"
         android:key="network_settings">
-        <Preference
+        <EditTextPreference
             android:key="pref_network_ip"
             android:title="NMEA server ip"
-            android:defaultValue="192.168.1.1"/>
-        <Preference 
+            android:defaultValue="192.168.1.1"
+            android:inputType="phone"/>
+        <EditTextPreference 
             android:key="pref_network_port"
             android:title="NMEA server port"
-            android:defaultValue="1703"/>
+            android:defaultValue="1703"
+            android:inputType="phone"/>
     </PreferenceCategory>
 </PreferenceScreen>

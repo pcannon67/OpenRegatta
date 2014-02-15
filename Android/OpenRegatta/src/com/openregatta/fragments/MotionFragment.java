@@ -1,4 +1,6 @@
-package com.example.openregatta;
+package com.openregatta.fragments;
+
+import com.openregatta.MainActivity;
 
 import android.app.Fragment;
 import android.util.Log;

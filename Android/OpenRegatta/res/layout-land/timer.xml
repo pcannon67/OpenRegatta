@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:background="#000000">
+    android:background="#000000"
+    android:baselineAligned="false" >
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -17,7 +18,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:text="- 1 M" 
+            android:text="@string/rem_min" 
             android:background="#FFFFFF"/>
 
         <Button
@@ -27,7 +28,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="+ 1 M" 
+            android:text="@string/add_min" 
             android:background="#FFFFFF"/>
 
     </RelativeLayout>
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Start" 
+            android:text="@string/start" 
             android:background="#FFFFFF"/>
 
         <Button
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:text="Start" 
+            android:text="@string/start" 
             android:background="#FFFFFF"/>
 
         <TextView
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="00:00"
+            android:text="@string/default_timer"
             android:textStyle="bold"
             android:textSize="120sp"
             android:textColor="#FFFFFF" />
@@ -80,7 +81,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="+ 1 S" 
+            android:text="@string/add_sec" 
             android:background="#FFFFFF"/>
 
         <Button
@@ -90,7 +91,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:text="- 1 S" 
+            android:text="@string/rem_sec" 
             android:background="#FFFFFF"/>
 
     </RelativeLayout>

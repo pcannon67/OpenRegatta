@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="Tg"
+            android:text="@string/target_awa"
             android:textSize="60sp" 
             android:textColor="#FFFFFF"/>
 
@@ -27,7 +27,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="58dp"
-            android:text="00.00"
+            android:text="@string/default_awa"
             android:textStyle="bold"
             android:textSize="120sp" 
             android:textColor="#FFFFFF"/>
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="SOW"
+            android:text="@string/target_sow"
             android:textSize="60sp" 
             android:textColor="#FFFFFF"/>
 
@@ -56,7 +56,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="58dp"
-            android:text="00.00"
+            android:text="@string/default_00.0"
             android:textStyle="bold"
             android:textSize="120sp" 
             android:textColor="#FFFFFF"/>

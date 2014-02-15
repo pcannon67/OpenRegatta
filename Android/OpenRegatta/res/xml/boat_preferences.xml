@@ -3,19 +3,21 @@
     <PreferenceCategory 
         android:title="@string/boat_settings"
         android:key="boat_preferences">
-        <Preference
+        <EditTextPreference
             android:key="pref_boat_lenght"
             android:summary="lenght in feets"
             android:title="Boat Lenght"
-            android:defaultValue="30"/>
-        <Preference 
+            android:defaultValue="30"
+            android:inputType="phone"/>
+        <EditTextPreference 
             android:key="pref_boat_gps_offset"
             android:summary="Bow to receiver offset in feets"
             android:title="GPS offset"
-            android:defaultValue="30"/>
+            android:defaultValue="30"
+            android:inputType="phone"/>
         <EditTextPreference 
             android:key="pref_boat_name"
             android:title="Boat name"
-            android:defaultValue="Argo"/>
+            android:defaultValue="Entreprise"/>
     </PreferenceCategory>
 </PreferenceScreen>

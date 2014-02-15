@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Start" 
+            android:text="@string/start" 
             android:background="#FFFFFF"/>
 
 		<Button
@@ -25,7 +25,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentLeft="true"
 		    android:layout_alignParentTop="true"
-		    android:text="+ 1 M" 
+		    android:text="@string/add_min" 
 		    android:background="#FFFFFF"/>
 
 		<Button
@@ -34,7 +34,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentRight="true"
 		    android:layout_alignParentTop="true"
-		    android:text="+ 1 S" 
+		    android:text="@string/add_sec" 
 		    android:background="#FFFFFF"/>
 
     </RelativeLayout>
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="00:00"
+            android:text="@string/default_timer"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="120sp"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="Start" 
+            android:text="@string/start" 
             android:background="#FFFFFF"/>
 
         <Button
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="- 1 S" 
+            android:text="@string/rem_sec" 
             android:background="#FFFFFF"/>
 
         <Button
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:text="- 1 M" 
+            android:text="@string/rem_min" 
             android:background="#FFFFFF"/>
 
     </RelativeLayout>

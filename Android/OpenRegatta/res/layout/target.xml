@@ -11,23 +11,23 @@
         android:layout_weight="1" >
 
         <TextView
-            android:id="@+id/textView_target"
+            android:id="@+id/textView_target_awa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="00.00"
+            android:text="@string/default_awa"
             android:textSize="120sp"
             android:textStyle="bold" 
             android:textColor="#FFFFFF"/>
 
         <TextView
-            android:id="@+id/label_target"
+            android:id="@+id/label_target_awa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Tg"
+            android:text="@string/target_awa"
             android:textSize="60sp" 
             android:textColor="#FFFFFF"/>
 
@@ -39,23 +39,23 @@
         android:layout_weight="1" >
 
         <TextView
-            android:id="@+id/textView_speed"
+            android:id="@+id/textView_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="00.00"
+            android:text="@string/default_00.0"
             android:textSize="120sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/label_speed"
+            android:id="@+id/label_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="SOW"
+            android:text="@string/target_sow"
             android:textSize="60sp"
             android:textColor="#FFFFFF" />
 
