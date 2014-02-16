@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/imageView_upwind_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/Button02"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/upwind_mark_to_set"
+            android:src="@drawable/mark"
+            android:background="#FF0000" />
+
+        <Button
+            android:id="@+id/Button02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textView1"
+            android:background="#FFFFFF"
+            android:text="@string/mark_absolute" />
+
+        <Button
+            android:id="@+id/button_set_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView_upwind_mark"
+            android:layout_toRightOf="@+id/textView1"
+            android:background="#FFFFFF"
+            android:text="@string/mark_relative" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/upwind_mark_to_set"
+            android:textColor="#FFFFFF" 
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/Button_set_start_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/imageView1"
+            android:background="#FFFFFF"
+            android:text="@string/mark_absolute" />
+
+        <Button
+            android:id="@+id/Button_set_committee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imageView2"
+            android:background="#FFFFFF"
+            android:text="@string/mark_absolute" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/Button_set_committee"
+            android:src="@drawable/committee"
+            android:contentDescription="@string/start_line_to_set"
+            android:background="#FF0000" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Button_set_committee"
+            android:layout_alignBottom="@+id/Button_set_committee"
+            android:layout_centerHorizontal="true"
+            android:text="@string/start_line_to_set"
+            android:textColor="#FFFFFF" 
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView2"
+            android:layout_toRightOf="@+id/Button_set_start_mark"
+            android:src="@drawable/mark"
+            android:contentDescription="@string/start_line_to_set"
+            android:background="#FF0000" />
+
+    </RelativeLayout>
+
+</LinearLayout>

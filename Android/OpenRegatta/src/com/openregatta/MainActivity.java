@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.openregatta.R;
+import com.openregatta.fragments.CourseFragment;
 import com.openregatta.fragments.StartFragment;
 import com.openregatta.fragments.TargetFragment;
 import com.openregatta.fragments.TimeFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends Activity {
 		mItems.add(new TimeFragment());
 		mItems.add(new StartFragment());
 		mItems.add(new TargetFragment());
+		mItems.add(new CourseFragment());
 		
 		if(savedInstanceState != null)
 			onRestoreInstanceState(savedInstanceState);

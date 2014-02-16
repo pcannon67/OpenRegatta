@@ -21,39 +21,50 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int committee=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int mark=0x7f020002;
     }
     public static final class id {
-        public static final int boat_settings=0x7f090016;
-        public static final int button_minus_min=0x7f090015;
-        public static final int button_minus_sec=0x7f090014;
-        public static final int button_plus_min=0x7f090010;
-        public static final int button_plus_sec=0x7f090011;
-        public static final int button_start_stop=0x7f09000f;
-        public static final int button_start_stop2=0x7f090013;
+        public static final int Button02=0x7f090001;
+        public static final int Button_set_committee=0x7f090007;
+        public static final int Button_set_start_mark=0x7f090005;
+        public static final int boat_settings=0x7f09001e;
+        public static final int button_minus_min=0x7f09001d;
+        public static final int button_minus_sec=0x7f09001c;
+        public static final int button_plus_min=0x7f090019;
+        public static final int button_plus_sec=0x7f09001a;
+        public static final int button_set_relative=0x7f090002;
+        public static final int button_start_stop=0x7f090018;
+        public static final int button_start_stop2=0x7f09001b;
         public static final int fragment_container=0x7f090000;
-        public static final int label_boat_length=0x7f090003;
-        public static final int label_distance=0x7f090001;
-        public static final int label_sow=0x7f09000a;
-        public static final int label_speed=0x7f09000d;
-        public static final int label_target=0x7f09000b;
-        public static final int label_target_awa=0x7f090008;
-        public static final int label_time=0x7f090004;
-        public static final int lable_time_seconds=0x7f090006;
-        public static final int network_settings=0x7f090017;
-        public static final int textView1=0x7f090012;
-        public static final int textView_distance=0x7f090002;
-        public static final int textView_sow=0x7f090009;
-        public static final int textView_speed=0x7f09000e;
-        public static final int textView_target=0x7f09000c;
-        public static final int textView_target_awa=0x7f090007;
-        public static final int textView_time=0x7f090005;
+        public static final int imageView1=0x7f090006;
+        public static final int imageView2=0x7f090008;
+        public static final int imageView_upwind_mark=0x7f090003;
+        public static final int label_boat_length=0x7f09000c;
+        public static final int label_distance=0x7f09000a;
+        public static final int label_sow=0x7f090013;
+        public static final int label_speed=0x7f090016;
+        public static final int label_target=0x7f090014;
+        public static final int label_target_awa=0x7f090011;
+        public static final int label_time=0x7f09000d;
+        public static final int lable_time_seconds=0x7f09000f;
+        public static final int network_settings=0x7f09001f;
+        public static final int textView1=0x7f090004;
+        public static final int textView2=0x7f090009;
+        public static final int textView_distance=0x7f09000b;
+        public static final int textView_sow=0x7f090012;
+        public static final int textView_speed=0x7f090017;
+        public static final int textView_target=0x7f090015;
+        public static final int textView_target_awa=0x7f090010;
+        public static final int textView_time=0x7f09000e;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int start=0x7f030001;
-        public static final int target=0x7f030002;
-        public static final int timer=0x7f030003;
+        public static final int course=0x7f030001;
+        public static final int start=0x7f030002;
+        public static final int target=0x7f030003;
+        public static final int timer=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -69,15 +80,19 @@ public final class R {
         public static final int default_timer=0x7f06000e;
         public static final int distance_start_line=0x7f06000f;
         public static final int eta_start_line=0x7f060010;
+        public static final int mark_absolute=0x7f060014;
+        public static final int mark_relative=0x7f060013;
         public static final int network_settings=0x7f060003;
         public static final int rem_min=0x7f06000b;
         public static final int rem_sec=0x7f06000d;
         public static final int second_abbrev=0x7f060012;
         public static final int start=0x7f060008;
+        public static final int start_line_to_set=0x7f060016;
         public static final int stop=0x7f060009;
         public static final int target_awa=0x7f060005;
         public static final int target_sow=0x7f060007;
         public static final int title_activity_main=0x7f060001;
+        public static final int upwind_mark_to_set=0x7f060015;
     }
     public static final class style {
         /** 

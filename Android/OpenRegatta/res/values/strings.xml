@@ -19,4 +19,8 @@
     <string name="eta_start_line">ETA Line</string>
     <string name="boat_lenght_abbrev">BL</string>
     <string name="second_abbrev">s</string>
+    <string name="mark_relative">Set Relatively</string>
+    <string name="mark_absolute">Set Now</string>
+    <string name="upwind_mark_to_set">Please Set Upwing Mark</string>
+    <string name="start_line_to_set">Please Set Starting Line</string>
 </resources>
