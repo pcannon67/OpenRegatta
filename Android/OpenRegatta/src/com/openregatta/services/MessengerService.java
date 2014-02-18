@@ -31,33 +31,43 @@ public class MessengerService extends Service {
         NotificationManager mNM;
         /** Keeps track of all current registered clients. */
         ArrayList<Messenger> mClients = new ArrayList<Messenger>();
-        /** Holds last value set by a client. */
-        int mValue = 0;
-        final Random rndGen = new Random();
-
+        /** Port used for TCP and UDP connections */
+        int port = 1703;
+        /** IP used for the connection if necessary */
+        String ip = "192.168.192.1";
+        /** Thread for TCP connection */
+        Thread thread;
+        /** Runnable that uses a tcp socket to read stream of data */
+        TCPSocketRunnable tcpSocketRunnable;
+        
         /**
          * Command to the service to register a client, receiving callbacks from the
          * service. The Message's replyTo field must be a Messenger of the client
          * where callbacks should be sent.
          */
-        static final int MSG_REGISTER_CLIENT = 1;
-
+        public static final int MSG_REGISTER_CLIENT = 1;
         /**
          * Command to the service to unregister a client, ot stop receiving
          * callbacks from the service. The Message's replyTo field must be a
          * Messenger of the client as previously given with MSG_REGISTER_CLIENT.
          */
-        static final int MSG_UNREGISTER_CLIENT = 2;
-
+        public static final int MSG_UNREGISTER_CLIENT = 2;
         /**
-         * Command to service to set a new value. This can be sent to the service to
-         * supply a new value, and will be sent by the service to any registered
-         * clients with the new value.
+         * Command to service to connect using TCP Socket using specific IP and port
+         * given as arg0 and obj of the Message
          */
-        static final int MSG_SET_VALUE = 3;
+        public static final int MSG_CONNECT_TCP = 3;       
+        /**
+         * Event sent to the clients in case there was an issue with the connection and
+         * we lost the socket
+         */
+        public static final int EVENT_DISCONECTED = 4;        
+        /**
+         * Event sent to the clients in order to warn them that new incoming data is available
+         * also attach the data object to the Message so clients can update the visuals 
+         */
+        public static final int EVENT_DATA_INCOMING = 5;       
         
-        static final int GOT_LINE = 4;
-
         /**
          * Handler of incoming messages from clients.
          */
@@ -71,18 +81,24 @@ public class MessengerService extends Service {
                         case MSG_UNREGISTER_CLIENT:
                                 mClients.remove(msg.replyTo);
                                 break;
-                        case MSG_SET_VALUE:
-                                mValue = msg.arg1;
-                                for (int i = mClients.size() - 1; i >= 0; i--) {
-                                        try {
-                                                mClients.get(i).send(
-                                                                Message.obtain(null, MSG_SET_VALUE, mValue, 0));
-                                        } catch (RemoteException e) {
-                                                // The client is dead. Remove it from the list;
-                                                // we are going through the list from back to front
-                                                // so this is safe to do inside the loop.
-                                                mClients.remove(i);
-                                        }
+                        case MSG_CONNECT_TCP:
+                                port = (Integer) msg.arg1;
+                                ip = (String) msg.obj.toString();
+                                if(thread != null && thread.isAlive()
+                                		&& tcpSocketRunnable != null){
+                                	tcpSocketRunnable.shouldContinue = false;
+                                	try {
+										thread.join();
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+                                	}
+                                else
+                                {
+                                	tcpSocketRunnable = new TCPSocketRunnable();
+                                	thread = new Thread(tcpSocketRunnable);
+                                	thread.start();
                                 }
                                 break;
                         default:
@@ -101,10 +117,7 @@ public class MessengerService extends Service {
                 mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 // Display a notification about us starting.
-                showNotification();
-                
-                Runnable connect = new connectSocket();
-                new Thread(connect).start();
+                showNotification(); 
         }
 
         @Override
@@ -152,10 +165,12 @@ public class MessengerService extends Service {
                 mNM.notify(1, notification);
         }
         
-        class connectSocket implements Runnable {
+        class TCPSocketRunnable implements Runnable {
 
         	SocketAddress socketAddress;
         	Socket s = new Socket();
+        	boolean shouldContinue = true;
+        	
         	public void run()
         	{
         		SocketAddress socketAddress = new InetSocketAddress("192.168.129.1", 1703);
@@ -171,7 +186,7 @@ public class MessengerService extends Service {
                     	   for (int i = mClients.size() - 1; i >= 0; i--) {
                                try {
                                        mClients.get(i).send(
-                                                       Message.obtain(null, GOT_LINE, 0, 0, data));
+                                                       Message.obtain(null, EVENT_DATA_INCOMING, 0, 0, NMEAParser.Parse(data)));
                                } catch (RemoteException e) {
                                        // The client is dead. Remove it from the list;
                                        // we are going through the list from back to front
@@ -179,7 +194,8 @@ public class MessengerService extends Service {
                                        mClients.remove(i);
                                }
                     	   }}
-                    	   
+                    	   if(!shouldContinue)
+                    		 break;  
                        }
                        s.close();
                        

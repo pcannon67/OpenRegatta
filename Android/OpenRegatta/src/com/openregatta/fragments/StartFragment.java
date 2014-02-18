@@ -1,13 +1,14 @@
 package com.openregatta.fragments;
 
 import com.openregatta.R;
+import com.openregatta.services.NMEADataFrame;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class StartFragment extends MotionFragment {
+public class StartFragment extends RegattaFragment {
 
 
 	
@@ -21,5 +22,12 @@ public class StartFragment extends MotionFragment {
         
         return rootView;
     }
+	
+	@Override 
+	public void Update(NMEADataFrame frame)
+	{
+		
+		
+	}
 
 }

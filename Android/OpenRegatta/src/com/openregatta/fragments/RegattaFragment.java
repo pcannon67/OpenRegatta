@@ -1,6 +1,7 @@
 package com.openregatta.fragments;
 
 import com.openregatta.MainActivity;
+import com.openregatta.services.NMEADataFrame;
 
 import android.app.Fragment;
 import android.util.Log;
@@ -9,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-public class MotionFragment extends Fragment {
+public abstract class RegattaFragment extends Fragment {
 
 	static private final String TAG = "OpenRegatta";
 
@@ -58,4 +59,6 @@ public class MotionFragment extends Fragment {
         
 	}
 
+	public abstract void Update(NMEADataFrame frame);
+	
 }

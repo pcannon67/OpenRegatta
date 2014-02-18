@@ -6,8 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openregatta.R;
+import com.openregatta.services.NMEADataFrame;
 
-public class CourseFragment extends MotionFragment {
+public class CourseFragment extends RegattaFragment {
 
 
 	@Override
@@ -19,5 +20,12 @@ public class CourseFragment extends MotionFragment {
         super.attachDetector(rootView);
         
         return rootView;
+	}
+	
+	@Override 
+	public void Update(NMEADataFrame frame)
+	{
+		
+		
 	}
 }
