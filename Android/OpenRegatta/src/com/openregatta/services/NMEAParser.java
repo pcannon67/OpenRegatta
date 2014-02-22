@@ -33,8 +33,6 @@ public final class NMEAParser {
 		return data;
 	}
 
-	
-
 	/**
 	 * Parses MWD NMEA0183 sentence if found in the given frame and put information into the data object
 	 * 
@@ -163,7 +161,7 @@ public final class NMEAParser {
 		 String checksum = getChecksum(sentence);
          String[] split = sentence.split("*");
          
-         return (split.length == 2 && split[1] == checksum);
+         return (split.length == 2 && split[1].substring(0, 1) == checksum);
 	 }
 	 
 }
