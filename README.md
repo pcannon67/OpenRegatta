@@ -10,3 +10,4 @@ The main purpose are:
 
 Everything necessary to build an instance of an OpenRegatta system should be decribed in the Wiki pages. For now we're only at the step of prototyping, once validated the app will be available on the Google Play app store and we can potentially help/guide people though installation of the hardware.
 
+For more details about the project visit our Wiki: https://github.com/ddieffen/OpenRegatta/wiki
