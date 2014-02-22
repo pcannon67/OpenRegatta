@@ -19,15 +19,16 @@ public final class NMEAParser {
 		
 		for(int i = 0; i < split.length; i++)
 		{
+			if(validLine(split[i])){
+			
 			parseMWV(data, split[i]);
 			parseMWD(data, split[i]);
 			parseRMC(data, split[i]);
 			parseRMB(data, split[i]);
 			parseVHW(data, split[i]);
 			parseGLL(data, split[i]);
+			}
 		}
-		//An idea that we may never use:
-		//calculateTrueValues(data);
 		
 		return data;
 	}
@@ -120,17 +121,49 @@ public final class NMEAParser {
 	}
 	
 	/**
-	 * If possible uses the measurement given by the instruments and calculate the true readings
-	 * For example True Wind Speed can be calculated using AWA, AWS, SOG
-	 * Another example True Wind Angle can be calculated using AWA, AWS, SOG, HDG
+	 * Calculates the checksum from an NMEA0183 sentence
+	 * returns the calculated checksum as a string of two characters
 	 * 
-	 * If true data is already existing in the data object, these values will be overriden with the ones calcualted here
-	 * 
-	 * @param data
+	 * @param sentence must be formatted as follow : $data*
+	 * the checksum will be computer from the characters between the $ and * characters
+	 * @return 2-digit hex value of the computed checksum
 	 */
-	private static void calculateTrueValues(NMEADataFrame data) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	 public static String getChecksum(String sentence)
+     {		 
+         //Start with first Item
+         int checksum = (byte) sentence.charAt(sentence.indexOf('$') + 1);
+         // Loop through all chars to get a checksum
+         for (int i = sentence.indexOf('$') + 2; i < sentence.indexOf('*'); i++)
+         {
+             // No. XOR the checksum with this character's value
+             checksum ^= (byte) sentence.charAt(i);
+         }
+         
+         // Return the checksum formatted as a two-character hexadecimal
+         StringBuilder sb = new StringBuilder();
+         sb.append(Integer.toHexString(checksum));
+         if (sb.length() < 2) {
+             sb.insert(0, '0'); // pad with leading zero if needed
+         }
+         return sb.toString();
+     }
+	 
+	 /**
+	  * This method checks if a sentence is valid comparing the checksum at the end of the line
+	  * and the calculated checksum from the data at the beginning of the line
+	  * 
+	  * The method uses the data contained between $ and * to calculate the checksum
+	  * then uses the two characters following the * to compare with the computed checksum
+	  * 
+	  * @param must be formatted as follow : $data*checksum
+	  * @return
+	  */
+	 public static boolean validLine(String sentence)
+	 {
+		 String checksum = getChecksum(sentence);
+         String[] split = sentence.split("*");
+         
+         return (split.length == 2 && split[1] == checksum);
+	 }
+	 
 }
