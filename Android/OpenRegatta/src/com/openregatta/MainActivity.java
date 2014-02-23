@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.openregatta.R;
 import com.openregatta.fragments.CourseFragment;
+import com.openregatta.fragments.DataFragment;
 import com.openregatta.fragments.RegattaFragment;
 import com.openregatta.fragments.StartFragment;
 import com.openregatta.fragments.TargetFragment;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
 		mItems.add(new StartFragment());
 		mItems.add(new TargetFragment());
 		mItems.add(new CourseFragment());
+		mItems.add(new DataFragment());
 		
 		if(savedInstanceState != null)
 			onRestoreInstanceState(savedInstanceState);
