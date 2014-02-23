@@ -3,6 +3,7 @@ package com.openregatta.preferences;
 import com.openregatta.R;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -29,6 +30,26 @@ public class BoatPreferences extends PreferenceFragment {
     		EditTextPreference lengthPref = (EditTextPreference) lenght_pref;
     		float length = sp.getFloat("length", 30f);
     		lengthPref.setText(Float.toString(length));
+    		lengthPref.setSummary(Float.toString(length) + " feets");
+    		lengthPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    		{
+	    		@Override
+	    		public boolean onPreferenceChange(Preference preference, Object newValue)
+	    		{
+	    			try{
+	    				float lenght = Float.parseFloat(newValue.toString());
+	    				if(lenght > 1){
+	    					preference.setSummary(Float.toString(lenght) + " feets");
+	    					return true;
+	    				}
+	    				else
+	    					return false;
+	    			}
+	    			catch(Exception e){
+	    				return false;
+	    			}
+	    		}
+	    	});
     	}
     	
     	Preference offset_pref = findPreference("pref_boat_gps_offset");
@@ -36,6 +57,26 @@ public class BoatPreferences extends PreferenceFragment {
     		EditTextPreference offsetPref = (EditTextPreference) offset_pref;
     		float offset = sp.getFloat("offset", 30f);
     		offsetPref.setText(Float.toString(offset));
+    		offsetPref.setSummary(Float.toString(offset) + " feets");
+    		offsetPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    		{
+	    		@Override
+	    		public boolean onPreferenceChange(Preference preference, Object newValue)
+	    		{
+	    			try{
+	    				float offset = Float.parseFloat(newValue.toString());
+	    				if(offset > 1){
+	    					preference.setSummary(Float.toString(offset) + " feets");
+	    					return true;
+	    				}
+	    				else
+	    					return false;
+	    			}
+	    			catch(Exception e){
+	    				return false;
+	    			}
+	    		}
+	    	});
     	}
     	
     	Preference name_pref = findPreference("pref_boat_name");
@@ -43,6 +84,21 @@ public class BoatPreferences extends PreferenceFragment {
     		EditTextPreference namePref = (EditTextPreference) name_pref;
     		String name = sp.getString("name", "Entreprise");
     		namePref.setText(name);
+    		namePref.setSummary(name);
+    		namePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
+    		{
+	    		@Override
+	    		public boolean onPreferenceChange(Preference preference, Object newValue)
+	    		{
+	    			try{
+    					preference.setSummary(newValue.toString());
+    					return true;
+	    			}
+	    			catch(Exception e){
+	    				return false;
+	    			}
+	    		}
+	    	});
     	}
     }
     
@@ -81,5 +137,4 @@ public class BoatPreferences extends PreferenceFragment {
     	editor.putFloat("offset", offset);
     	editor.commit();
     }
-
 }

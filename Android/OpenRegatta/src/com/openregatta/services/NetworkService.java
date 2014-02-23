@@ -181,41 +181,41 @@ public class NetworkService extends Service {
         	public void run()
         	{
         		SocketAddress socketAddress = new InetSocketAddress("192.168.129.1", 1703);
-        		   try {               
-                       s.connect(socketAddress);
-                       InputStream in = s.getInputStream();
-                       Reader reader = new InputStreamReader(in);
-                       BufferedReader bufferedReader = new BufferedReader(reader);
-                       
-                       String packagedData = "";
-                       
-                       for (String data; (data = bufferedReader.readLine()) != null;)
-                       {
-                    	   if(!data.equals(""))
-                    		   packagedData = packagedData.concat(data + "\n");
-                    		if(packagedData.toLowerCase().contains("rmc")){
-	                    	   for (int i = mClients.size() - 1; i >= 0; i--) {
-	                               try {
-	                                       mClients.get(i).send(
-	                                                       Message.obtain(null, EVENT_DATA_INCOMING, 0, 0, NMEA0183Parser.Parse(packagedData)));
-	                               } catch (RemoteException e) {
-	                                       // The client is dead. Remove it from the list;
-	                                       // we are going through the list from back to front
-	                                       // so this is safe to do inside the loop.
-	                                       mClients.remove(i);
-	                               }
-	                    	   }
-	                    	   packagedData = "";
-                    	   }
-                    	   
-                    	   if(!shouldContinue)
-                    		 break;  
-                       }
-                       s.close();
-                       
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
+        		try {               
+			       s.connect(socketAddress);
+			       InputStream in = s.getInputStream();
+			       Reader reader = new InputStreamReader(in);
+			       BufferedReader bufferedReader = new BufferedReader(reader);
+			       
+			       String packagedData = "";
+			   
+		       	for (String data; (data = bufferedReader.readLine()) != null;)
+		       	{
+				   if(!data.equals(""))
+					   packagedData = packagedData.concat(data + "\n");
+					if(packagedData.toLowerCase().contains("rmc")){
+			    	   for (int i = mClients.size() - 1; i >= 0; i--) {
+			               try {
+			                       mClients.get(i).send(
+			                                       Message.obtain(null, EVENT_DATA_INCOMING, 0, 0, NMEA0183Parser.Parse(packagedData)));
+			               } catch (RemoteException e) {
+			                       // The client is dead. Remove it from the list;
+			                       // we are going through the list from back to front
+			                       // so this is safe to do inside the loop.
+			                       mClients.remove(i);
+			               }
+			    	   }
+			    	   packagedData = "";
+			    	   }
+			    	   
+			    	   if(!shouldContinue)
+			    		 break;  
+			       }
+			       s.close();
+			       
+        		} catch (IOException e) {
+			       e.printStackTrace();
+        		}
         	}
         }
 }
