@@ -8,6 +8,13 @@ import android.view.ViewGroup;
 import com.openregatta.R;
 import com.openregatta.services.NMEADataFrame;
 
+/**
+ * The course fragment helps the user defining the course by setting the marks for the starting line
+ * and for the upwind mark
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class CourseFragment extends RegattaFragment {
 
 

@@ -10,7 +10,9 @@ import com.openregatta.fragments.RegattaFragment;
 import com.openregatta.fragments.StartFragment;
 import com.openregatta.fragments.TargetFragment;
 import com.openregatta.fragments.TimeFragment;
-import com.openregatta.services.MessengerService;
+import com.openregatta.preferences.BoatPreferences;
+import com.openregatta.preferences.NetworkPreferences;
+import com.openregatta.services.NetworkService;
 import com.openregatta.services.NMEADataFrame;
 
 import android.app.Fragment;
@@ -21,6 +23,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -37,6 +40,8 @@ import android.content.SharedPreferences;
 
 public class MainActivity extends Activity {
 
+	static private final String TAG = "OpenRegatta";
+	
 	/** List containing all the fragments that the user can navigate to by sliding left and right */
 	private final List<Fragment> mItems = new ArrayList<Fragment>();
 	/** Current index that is shown to the user */
@@ -63,7 +68,7 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-        doBindService();
+        
         
         //set layout for the main activity
 		setContentView(R.layout.activity_main);
@@ -87,7 +92,18 @@ public class MainActivity extends Activity {
 	protected void onResume()
 	{
 		super.onResume();
+		
+		doBindService();
+		
 		ShowCurrentFragment();
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		
+		doUnbindService();
 	}
 	
 	@Override
@@ -145,29 +161,36 @@ public class MainActivity extends Activity {
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, mItems.get(frag_index));
 		fragmentTransaction.commit();
+		
+		Log.i(TAG, "fragment transation, frag_index = " + Integer.toString(frag_index));
 	}
 	
 	public void ShowCurrentFragment()
 	{
-		int newIndex = frag_index % mItems.size();
-		frag_index = newIndex;
+		frag_index = frag_index % mItems.size();
 		
 		FragmentManager mFragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, mItems.get(frag_index));
 		fragmentTransaction.commit();
+		
+		Log.i(TAG, "fragment transation, frag_index = " + Integer.toString(frag_index));
 	}
 	
 	public void ShowPreviousFragment()
 	{
-		int newIndex = (frag_index + 1) % mItems.size();
-		frag_index = newIndex;
-		
+		frag_index = (frag_index - 1) % mItems.size();
+		if (frag_index<0) frag_index += mItems.size(); //modulo operator return negative values
+
 		FragmentManager mFragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, mItems.get(frag_index));
 		fragmentTransaction.commit();
+	
+		Log.i(TAG, "fragment transation, frag_index = " + Integer.toString(frag_index));
 	}
+	
+	
 
 	 /**
      * Handler of incoming messages from service.
@@ -176,11 +199,11 @@ public class MainActivity extends Activity {
             @Override
             public void handleMessage(Message msg) {
                     switch (msg.what) {
-                    case MessengerService.EVENT_DATA_INCOMING:
-                    	int newIndex = frag_index % mItems.size();
-                		frag_index = newIndex;
-                		RegattaFragment fragment = (RegattaFragment) mItems.get(frag_index);
-                		if((NMEADataFrame) msg.obj != null)
+                    case NetworkService.EVENT_DATA_INCOMING:
+                    	RegattaFragment fragment = null;
+                    	if(mItems.size() > frag_index && frag_index >= 0)
+                    		 fragment = (RegattaFragment) mItems.get(frag_index);
+                		if((NMEADataFrame) msg.obj != null && fragment != null)
                 			fragment.Update((NMEADataFrame) msg.obj);
                         break;
                     default:
@@ -210,12 +233,12 @@ public class MainActivity extends Activity {
                     // connected to it.
                     try {
                             Message msg = Message.obtain(null,
-                                            MessengerService.MSG_REGISTER_CLIENT);
+                                            NetworkService.MSG_REGISTER_CLIENT);
                             msg.replyTo = mMessenger;
                             mService.send(msg);  
                             
                             // Give it some value as an example.
-                            msg = Message.obtain(null, MessengerService.MSG_CONNECT_TCP, 1703, 
+                            msg = Message.obtain(null, NetworkService.MSG_CONNECT_TCP, 1703, 
                                             0, "192.168.129.1");
                             mService.send(msg);
                             
@@ -246,9 +269,11 @@ public class MainActivity extends Activity {
          // Establish a connection with the service. We use an explicit
          // class name because there is no reason to be able to let other
          // applications replace our component.
-         bindService(new Intent(MainActivity.this, MessengerService.class),
-                         mConnection, Context.BIND_AUTO_CREATE);
-         mIsBound = true;
+		 if(mIsBound == false){
+	         bindService(new Intent(MainActivity.this, NetworkService.class),
+	                         mConnection, Context.BIND_AUTO_CREATE);
+	         mIsBound = true;
+         }
 	 }
 
 	 void doUnbindService() {
@@ -258,7 +283,7 @@ public class MainActivity extends Activity {
                  if (mService != null) {
                          try {
                                  Message msg = Message.obtain(null,
-                                                 MessengerService.MSG_UNREGISTER_CLIENT);
+                                                 NetworkService.MSG_UNREGISTER_CLIENT);
                                  msg.replyTo = mMessenger;
                                  mService.send(msg);
                          } catch (RemoteException e) {

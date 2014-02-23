@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-
+/**
+ * Fragment that helps the user setting key parameters for the boat 
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class BoatPreferences extends PreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {

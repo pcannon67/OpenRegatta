@@ -26,20 +26,18 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.widget.Toast;
 
-public class MessengerService extends Service {
+/**
+ * The Race service will keep track of parameters needed for the current race such as:
+ * buoy locations, starting line location, time to the start
+ * 
+ * @author ddieffenthaler
+ *
+ */
+public class RaceService extends Service {
         /** For showing and hiding our notification. */
         NotificationManager mNM;
         /** Keeps track of all current registered clients. */
         ArrayList<Messenger> mClients = new ArrayList<Messenger>();
-        /** Port used for TCP and UDP connections */
-        int port = 1703;
-        /** IP used for the connection if necessary */
-        String ip = "192.168.192.1";
-        /** Thread for TCP connection */
-        Thread thread;
-        /** Runnable that uses a tcp socket to read stream of data */
-        TCPSocketRunnable tcpSocketRunnable;
-        
         /**
          * Command to the service to register a client, receiving callbacks from the
          * service. The Message's replyTo field must be a Messenger of the client
@@ -52,22 +50,7 @@ public class MessengerService extends Service {
          * Messenger of the client as previously given with MSG_REGISTER_CLIENT.
          */
         public static final int MSG_UNREGISTER_CLIENT = 2;
-        /**
-         * Command to service to connect using TCP Socket using specific IP and port
-         * given as arg0 and obj of the Message
-         */
-        public static final int MSG_CONNECT_TCP = 3;       
-        /**
-         * Event sent to the clients in case there was an issue with the connection and
-         * we lost the socket
-         */
-        public static final int EVENT_DISCONECTED = 4;        
-        /**
-         * Event sent to the clients in order to warn them that new incoming data is available
-         * also attach the data object to the Message so clients can update the visuals 
-         */
-        public static final int EVENT_DATA_INCOMING = 5;       
-        
+      
         /**
          * Handler of incoming messages from clients.
          */
@@ -80,26 +63,6 @@ public class MessengerService extends Service {
                                 break;
                         case MSG_UNREGISTER_CLIENT:
                                 mClients.remove(msg.replyTo);
-                                break;
-                        case MSG_CONNECT_TCP:
-                                port = (Integer) msg.arg1;
-                                ip = (String) msg.obj.toString();
-                                if(thread != null && thread.isAlive()
-                                		&& tcpSocketRunnable != null){
-                                	tcpSocketRunnable.shouldContinue = false;
-                                	try {
-										thread.join();
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-                                	}
-                                else
-                                {
-                                	tcpSocketRunnable = new TCPSocketRunnable();
-                                	thread = new Thread(tcpSocketRunnable);
-                                	thread.start();
-                                }
                                 break;
                         default:
                                 super.handleMessage(msg);
@@ -163,52 +126,5 @@ public class MessengerService extends Service {
                 // We use a string id because it is a unique number. We use it later to
                 // cancel.
                 mNM.notify(1, notification);
-        }
-        
-        class TCPSocketRunnable implements Runnable {
-
-        	SocketAddress socketAddress;
-        	Socket s = new Socket();
-        	boolean shouldContinue = true;
-        	
-        	public void run()
-        	{
-        		SocketAddress socketAddress = new InetSocketAddress("192.168.129.1", 1703);
-        		   try {               
-                       s.connect(socketAddress);
-                       InputStream in = s.getInputStream();
-                       Reader reader = new InputStreamReader(in);
-                       BufferedReader bufferedReader = new BufferedReader(reader);
-                       
-                       String packagedData = "";
-                       
-                       for (String data; (data = bufferedReader.readLine()) != null;)
-                       {
-                    	   if(!data.equals(""))
-                    		   packagedData = packagedData.concat(data + "\n");
-                    		if(packagedData.toLowerCase().contains("rmc")){
-	                    	   for (int i = mClients.size() - 1; i >= 0; i--) {
-	                               try {
-	                                       mClients.get(i).send(
-	                                                       Message.obtain(null, EVENT_DATA_INCOMING, 0, 0, NMEA0183Parser.Parse(packagedData)));
-	                               } catch (RemoteException e) {
-	                                       // The client is dead. Remove it from the list;
-	                                       // we are going through the list from back to front
-	                                       // so this is safe to do inside the loop.
-	                                       mClients.remove(i);
-	                               }
-	                    	   }
-	                    	   packagedData = "";
-                    	   }
-                    	   
-                    	   if(!shouldContinue)
-                    		 break;  
-                       }
-                       s.close();
-                       
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
-        	}
         }
 }

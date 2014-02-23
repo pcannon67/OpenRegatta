@@ -6,7 +6,12 @@ import java.util.GregorianCalendar;
 
 import com.openregatta.tools.Tools;
 
-
+/**
+ * Parses the NMEA strings and place the data into a container object
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public final class NMEA0183Parser {
 
 	/** 
@@ -556,7 +561,7 @@ public final class NMEA0183Parser {
             		if(dataSplit[4].toLowerCase().equals("s"))
             			data.wind.TrueWindSpeed  = Tools.StatuteMileToMetersSecond(tempValue);
             	if((tempValue = Tools.tryParse(dataSplit[1])) != -1)
-            		data.wind.TrueWindDirectionT = tempValue;
+            		data.wind.TrueWindAngle = tempValue;
             	
             }
             else if (dataSplit[2].toLowerCase().equals("r"))

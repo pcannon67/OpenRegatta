@@ -8,6 +8,12 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+/**
+ * Fragment that helps the user selecting parameters for the network connection
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class NetworkPreferences extends PreferenceFragment {
 	
 

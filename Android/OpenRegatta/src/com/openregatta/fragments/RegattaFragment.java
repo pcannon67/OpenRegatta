@@ -9,7 +9,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-
+/**
+ * A abstract fragment that is used for all fragments that needs to slide left and right in this application
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public abstract class RegattaFragment extends Fragment {
 
 	static private final String TAG = "OpenRegatta";

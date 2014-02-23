@@ -4,6 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * This class holds parsed data
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class NMEADataFrame {
 	
 	public String frame = "";
@@ -47,8 +53,14 @@ public class NMEADataFrame {
 	{
 		/**
 		 * Apparent wind angle degrees
+		 * 0 to 360 degrees with 0 as dead ahead increasing when rotating clockwise
 		 */
 		public double ApparentWindAngle = -1;
+		/** 
+		 * True wind angle in degrees
+		 * 0 to 360 degrees with 0 as dead ahead increasing when rotating clockwise
+		 */
+		public double TrueWindAngle = -1;
 		/**
 		 * Apparent wind speed in meters per second
 		 */

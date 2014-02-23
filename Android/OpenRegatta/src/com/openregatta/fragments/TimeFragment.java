@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Keep track of time before the start and after the start
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class TimeFragment extends RegattaFragment  {
 
 	@Override

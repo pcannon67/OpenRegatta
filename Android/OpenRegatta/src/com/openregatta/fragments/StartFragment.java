@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Show to the user distance to the starting line as well as time to the starting line
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class StartFragment extends RegattaFragment {
 
 

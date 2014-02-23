@@ -8,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * Keep calculating target using the theorical predicted performance polars
+ * 
+ * @author ddieffenthaler
+ *
+ */
 public class TargetFragment extends RegattaFragment {
 	
 	@Override

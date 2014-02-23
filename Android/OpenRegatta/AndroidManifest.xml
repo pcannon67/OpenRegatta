@@ -47,7 +47,7 @@
         </activity>
         
           <service 
-            android:name="com.openregatta.services.MessengerService"/>
+            android:name="com.openregatta.services.NetworkService"/>
         
 	</application>
 
