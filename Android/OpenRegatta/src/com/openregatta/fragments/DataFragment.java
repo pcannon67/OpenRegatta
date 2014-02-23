@@ -60,17 +60,24 @@ public class DataFragment extends RegattaFragment {
 		SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm:ss");
 		time.setText(timeformat.format(frame.dateTime.getTime()));
 		
-		TextView awa = (TextView) getView().findViewById(R.id.textViewAWA);
-		awa.setText(Double.toString(frame.wind.ApparentWindAngle));
+		if(frame.wind.ApparentWindAngle != -1){
+			TextView awa = (TextView) getView().findViewById(R.id.textViewAWA);
+			awa.setText(Double.toString(frame.wind.ApparentWindAngle));
+		}
 		
-		TextView aws = (TextView) getView().findViewById(R.id.textViewAWS);
-		aws.setText(Double.toString(Tools.MetersSecondToKnots(frame.wind.ApparentWindSpeed)));
+		if(frame.wind.ApparentWindSpeed != -1){
+			TextView aws = (TextView) getView().findViewById(R.id.textViewAWS);
+			aws.setText(Double.toString(Tools.MetersSecondToKnots(frame.wind.ApparentWindSpeed)));
+		}
 		
-		TextView twd = (TextView) getView().findViewById(R.id.textViewTWD);
-		twd.setText(Double.toString(frame.wind.TrueWindDirectionT));
+		if(frame.wind.TrueWindDirectionT != -1){
+			TextView twd = (TextView) getView().findViewById(R.id.textViewTWD);
+			twd.setText(Double.toString(frame.wind.TrueWindDirectionT));
+		}
 		
-		TextView tws = (TextView) getView().findViewById(R.id.textViewTWS);
-		tws.setText(Double.toString(Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed)));
-		
+		if(frame.wind.TrueWindSpeed != -1){
+			TextView tws = (TextView) getView().findViewById(R.id.textViewTWS);
+			tws.setText(Double.toString(Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed)));
+		}
 	}
 }

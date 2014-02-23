@@ -73,5 +73,26 @@ public class Tools {
 	 {
 		 return (double)degrees + minutes / 60;
 	 }
+
+	 /**
+	  * Converts a speed in Kilometers per Hour in a speed in meters per second
+	  * 
+	  * @param tempValue
+	  * @return
+	  */
+	public static double KphToMetersSecond(double kph) {
+		
+		return 0.277778 * kph ;
+	}
+
+	/**
+	 * Converts a speed in statue miles per hour in a speed in meters per second
+	 * @param mile
+	 * @return
+	 */
+	public static double StatuteMileToMetersSecond(double mile) {
+		
+		return 0.44704 * mile;
+	}
 	
 }

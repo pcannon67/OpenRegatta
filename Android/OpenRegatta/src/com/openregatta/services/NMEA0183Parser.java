@@ -542,21 +542,37 @@ public final class NMEA0183Parser {
 		String[] dataSplit = frame.split(",");
         if (dataSplit[0].toLowerCase().contains("mwv"))
         {
-            double tempValue;
-            if (dataSplit.length >= 3 &&
-                (tempValue = Tools.tryParse(dataSplit[1])) != -1
-                && dataSplit[2].toLowerCase().equals("t")){ //true 0 to 360 degrees reference for 0 boat current direction
-                data.wind.ApparentWindAngle = tempValue;
+            
+        	double tempValue;
+            if(dataSplit[2].toLowerCase().equals("t"))
+            {//true wind readings
+            	if((tempValue = Tools.tryParse(dataSplit[3])) != -1)
+            		if(dataSplit[4].toLowerCase().equals("n"))
+            			data.wind.TrueWindSpeed  = Tools.KnotsToMetersSecond(tempValue);
+            		if(dataSplit[4].toLowerCase().equals("k"))
+            			data.wind.TrueWindSpeed  = Tools.KphToMetersSecond(tempValue);
+            		if(dataSplit[4].toLowerCase().equals("m"))
+            			data.wind.TrueWindSpeed  = tempValue;
+            		if(dataSplit[4].toLowerCase().equals("s"))
+            			data.wind.TrueWindSpeed  = Tools.StatuteMileToMetersSecond(tempValue);
+            	if((tempValue = Tools.tryParse(dataSplit[1])) != -1)
+            		data.wind.TrueWindDirectionT = tempValue;
+            	
             }
-            if (dataSplit.length >= 3 &&
-                (tempValue = Tools.tryParse(dataSplit[1])) != -1
-                && dataSplit[2].toLowerCase().equals("r")){ //relative 0 to 180 degrees reference for 0 boat current direction
-                data.wind.ApparentWindAngle = tempValue;
-            }
-            if (dataSplit.length >= 5 &&
-                (tempValue = Tools.tryParse(dataSplit[3])) != -1
-                && dataSplit[4].toLowerCase().equals("n")){
-                data.wind.ApparentWindSpeed = Tools.KnotsToMetersSecond(tempValue);
+            else if (dataSplit[2].toLowerCase().equals("r"))
+            {//apparent wind readings
+            	if((tempValue = Tools.tryParse(dataSplit[3])) != -1)
+            		if(dataSplit[4].toLowerCase().equals("n"))
+            			data.wind.ApparentWindSpeed  = Tools.KnotsToMetersSecond(tempValue);
+            		if(dataSplit[4].toLowerCase().equals("k"))
+            			data.wind.ApparentWindSpeed  = Tools.KphToMetersSecond(tempValue);
+            		if(dataSplit[4].toLowerCase().equals("m"))
+            			data.wind.ApparentWindSpeed  = tempValue;
+            		if(dataSplit[4].toLowerCase().equals("s"))
+            			data.wind.ApparentWindSpeed  = Tools.StatuteMileToMetersSecond(tempValue);
+            	if((tempValue = Tools.tryParse(dataSplit[1])) != -1)
+            		data.wind.ApparentWindAngle = tempValue;
+            			
             }
         }
 	}
