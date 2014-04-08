@@ -4,10 +4,10 @@
     <string name="title_activity_main">OpenRegatta</string>
     <string name="boat_settings">Boat Parameters</string>
     <string name="network_settings">Network Settings</string>
-    <string name="default_awa">000</string>
-    <string name="target_awa">T AWA</string>
-    <string name="default_00.0">00.0</string>
-    <string name="target_sow">T SOW</string>
+    <string name="default_awa">+0</string>
+    <string name="target_awa">AWA</string>
+    <string name="default_00.0">100%</string>
+    <string name="target_sow">SOW</string>
     <string name="start">START</string>
     <string name="stop">STOP</string>
     <string name="add_min">+1 Min</string>
