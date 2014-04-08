@@ -4,7 +4,7 @@ OpenRegatta
 OpenRegatta is a project that aims to uses information captured by sailboat instruments, transmits them over wifi and offer clear display though an android app.
 
 The main purpose are:
-- To suggest a way of transmitting NMEA information over WiFi
+- To suggest a way of transmitting NMEA information over WiFi (using KPlex software http://www.stripydog.com/kplex/)
 - To overcome the limitation of some existing displays by providing open source tools that allows anyone to build their own display
 - To potentially offer data storage and race analysis features so manoeuver and racing tackticks can be analysed later.
 
