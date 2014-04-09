@@ -1,9 +1,11 @@
 package com.openregatta;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.openregatta.R;
+import com.openregatta.database.PerformanceDataSource;
 import com.openregatta.fragments.CourseFragment;
 import com.openregatta.fragments.DataFragment;
 import com.openregatta.fragments.RegattaFragment;
@@ -14,9 +16,12 @@ import com.openregatta.preferences.BoatPreferences;
 import com.openregatta.preferences.NetworkPreferences;
 import com.openregatta.services.NetworkService;
 import com.openregatta.services.NMEADataFrame;
+import com.openregatta.tools.FileDialog;
 
 import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -41,16 +46,21 @@ import android.content.SharedPreferences;
 public class MainActivity extends Activity {
 
 	static private final String TAG = "OpenRegatta";
+	static private final int PICKFILE_REQUEST_CODE = 0;
 	
 	/** List containing all the fragments that the user can navigate to by sliding left and right */
 	private final List<Fragment> mItems = new ArrayList<Fragment>();
 	/** Current index that is shown to the user */
 	private int frag_index = 0;
 	 /** Messenger for communicating with service. */
-    Messenger mService = null;
+	private Messenger mService = null;
     /** Flag indicating whether we have called bind on the service. */
-    boolean mIsBound;
-	
+	private boolean mIsBound;
+    /** Access to performance data storage and practical methods*/
+	private PerformanceDataSource mPerformanceDataSource = null;
+	/** Dialog to select performance data for the boat */
+    private FileDialog mFileDialog = null;
+    
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 	  super.onRestoreInstanceState(savedInstanceState);
@@ -68,7 +78,37 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+        mPerformanceDataSource = new PerformanceDataSource(this);
+        mPerformanceDataSource.open();
         
+        if(mPerformanceDataSource.getCount() == 0)
+        {
+        	Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("file/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+            // special intent for Samsung file manager
+            Intent sIntent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
+             // if you want any file type, you can skip next line 
+            sIntent.putExtra("CONTENT_TYPE", "*/*"); 
+            sIntent.addCategory(Intent.CATEGORY_DEFAULT);
+
+            Intent chooserIntent;
+            if (getPackageManager().resolveActivity(sIntent, 0) != null){
+                // it is device with samsung file manager
+                chooserIntent = Intent.createChooser(sIntent, "Open file");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { intent});
+            }
+            else {
+                chooserIntent = Intent.createChooser(intent, "Open file");
+            }
+
+            try {
+                startActivityForResult(chooserIntent, PICKFILE_REQUEST_CODE);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(getApplicationContext(), "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
+            }
+        }
         
         //set layout for the main activity
 		setContentView(R.layout.activity_main);
@@ -86,6 +126,25 @@ public class MainActivity extends Activity {
 			SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 			frag_index = sharedPreferences.getInt("fragment_index", 0);
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == PICKFILE_REQUEST_CODE){
+			String fileUriString = data.getDataString();
+			Uri fileUri = Uri.parse(fileUriString);
+			Log.d(getClass().getName(), "selected file " + fileUriString);
+	        try{
+	            int insertedRecords = mPerformanceDataSource.LoadFromCSVFile(fileUri);
+	            Log.d(getClass().getName(), "inserted records " + String.valueOf(insertedRecords));
+	        }
+	        catch(Exception ex)
+	        {
+	        	Toast.makeText(MainActivity.this, "Impossible to open performance file:" + ex.toString(), Toast.LENGTH_SHORT).show();
+	        	Log.d(getClass().getName(), "Impossible to open performance file:" + ex.toString());
+	        }
+        }
 	}
 	
 	@Override
