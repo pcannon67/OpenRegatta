@@ -9,10 +9,10 @@ public class Tools {
 	  * @param string representation of the value to be parsed 
 	  * @return the value parsed from the given string
 	  */
-	 public static double tryParse(String number)
+	 public static float tryParse(String number)
 	 {
 		 try{
-			 return Double.parseDouble(number);
+			 return Float.parseFloat(number);
 		 }
 		 catch(Exception e){
 			return -1;
@@ -25,9 +25,9 @@ public class Tools {
 	  * @param knots
 	  * @return
 	  */
-	 public static double KnotsToMetersSecond(double knots)
+	 public static float KnotsToMetersSecond(float knots)
 	 {
-		 return knots * 0.514444;
+		 return (float) (knots * 0.514444);
 	 }
 	 
 	 /** 
@@ -36,9 +36,9 @@ public class Tools {
 	  * @param metersSecond
 	  * @return
 	  */
-	 public static double MetersSecondToKnots(double metersSecond)
+	 public static float MetersSecondToKnots(float metersSecond)
 	 {
-		 return metersSecond * 1.943844;
+		 return (float) (metersSecond * 1.943844);
 	 }
 	 
 	 /**
@@ -46,7 +46,7 @@ public class Tools {
 	  * @param miles
 	  * @return
 	  */
-	 public static double MilesToMeters(double miles)
+	 public static float MilesToMeters(float miles)
 	 {
 		 return miles * 1852;
 	 }
@@ -56,7 +56,7 @@ public class Tools {
 	  * @param meters
 	  * @return
 	  */
-	 public static double MetersToMiles(double meters)
+	 public static float MetersToMiles(float meters)
 	 {
 		 return meters / 1852;
 	 }
@@ -69,9 +69,9 @@ public class Tools {
 	  * @param minutes
 	  * @return
 	  */
-	 public static double DegreeMinutesToDegree(int degrees, double minutes)
+	 public static float DegreeMinutesToDegree(float degrees, float minutes)
 	 {
-		 return (double)degrees + minutes / 60;
+		 return degrees + minutes / 60;
 	 }
 
 	 /**
@@ -80,9 +80,9 @@ public class Tools {
 	  * @param tempValue
 	  * @return
 	  */
-	public static double KphToMetersSecond(double kph) {
+	public static float KphToMetersSecond(float kph) {
 		
-		return 0.277778 * kph ;
+		return (float) (0.277778 * kph) ;
 	}
 
 	/**
@@ -90,9 +90,9 @@ public class Tools {
 	 * @param mile
 	 * @return
 	 */
-	public static double StatuteMileToMetersSecond(double mile) {
+	public static float StatuteMileToMetersSecond(float mile) {
 		
-		return 0.44704 * mile;
+		return (float) (0.44704 * mile);
 	}
 	
 }

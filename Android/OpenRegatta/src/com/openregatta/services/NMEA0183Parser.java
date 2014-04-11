@@ -273,7 +273,7 @@ public final class NMEA0183Parser {
 		 String[] dataSplit = frame.split(",");
          if (dataSplit[0].toLowerCase().contains("mwd"))
          {
-             double tempValue;
+        	 float tempValue;
              if (dataSplit.length >= 3 &&
                  (tempValue = Tools.tryParse(dataSplit[1])) != -1
                  && dataSplit[2].toLowerCase().equals("t")){
@@ -352,7 +352,7 @@ public final class NMEA0183Parser {
 		 String[] dataSplit = frame.split(",");
          if (dataSplit[0].toLowerCase().contains("vhw"))
          {
-             double tempValue;
+        	 float tempValue;
              if (dataSplit.length >= 3 &&
                  (tempValue = Tools.tryParse(dataSplit[1])) != -1
                  && dataSplit[2].toLowerCase().equals("t")){
@@ -395,36 +395,36 @@ public final class NMEA0183Parser {
 		 String[] dataSplit = frame.split(",");
          if (dataSplit[0].toLowerCase().contains("gll"))
          {
-             double tempValue;
+        	 float tempValue;
              if (dataSplit.length >= 3 &&
                  (tempValue = Tools.tryParse(dataSplit[1])) != -1
                  && dataSplit[2].toLowerCase().equals("n")){
-            	double minutes = (tempValue % 100);
-             	int degrees = (int)(tempValue / 100) % 100;
+            	 float minutes = (tempValue % 100);
+            	 float degrees = (float)(tempValue / 100) % 100;
              	
                 data.attitude.LatitudeN = Tools.DegreeMinutesToDegree(degrees, minutes);
              }
              if (dataSplit.length >= 5 &&
                  (tempValue = Tools.tryParse(dataSplit[3])) != -1
                  && dataSplit[4].toLowerCase().equals("w")){
-            	 double minutes = (tempValue % 100);
-              	 int degrees = (int)(tempValue / 100) % 100;
+            	 float minutes = (tempValue % 100);
+            	 float degrees = (int)(tempValue / 100) % 100;
             	 
                  data.attitude.LongitudeE = -Tools.DegreeMinutesToDegree(degrees, minutes);
              }
              if (dataSplit.length >= 3 &&
                  (tempValue = Tools.tryParse(dataSplit[1])) != -1
                  && dataSplit[2].toLowerCase().equals("s")){
-            	 double minutes = (tempValue % 100);
-              	 int degrees = (int)(tempValue / 100) % 100;
+            	 float minutes = (tempValue % 100);
+            	 float degrees = (int)(tempValue / 100) % 100;
             	 
                  data.attitude.LatitudeN = -Tools.DegreeMinutesToDegree(degrees, minutes);
              }
              if (dataSplit.length >= 5 &&
                  (tempValue = Tools.tryParse(dataSplit[3])) != -1
                  && dataSplit[4].toLowerCase().equals("e")){
-            	 double minutes = (tempValue % 100);
-              	 int degrees = (int)(tempValue / 100) % 100;
+            	 float minutes = (tempValue % 100);
+            	 float degrees = (int)(tempValue / 100) % 100;
             	 
                  data.attitude.LongitudeE = Tools.DegreeMinutesToDegree(degrees, minutes);
              }
@@ -460,7 +460,7 @@ public final class NMEA0183Parser {
 		String[] dataSplit = frame.split(",");
         if (dataSplit[0].toLowerCase().contains("rmc"))
         {
-            double tempValue;
+        	float tempValue;
             if (dataSplit.length >= 2 && 
                 (tempValue = Tools.tryParse(dataSplit[1])) != -1){
             	int seconds = (int)(tempValue % 100);
@@ -478,32 +478,32 @@ public final class NMEA0183Parser {
             if (dataSplit.length >= 5 &&
                 (tempValue = Tools.tryParse(dataSplit[3])) != -1
                 && dataSplit[2].toLowerCase().equals("n")){
-            	double minutes = (tempValue % 100);
-             	 int degrees = (int)(tempValue / 100) % 100;
+            	float minutes = (tempValue % 100);
+            	float degrees = (int)(tempValue / 100) % 100;
             	
                 data.attitude.LatitudeN = Tools.DegreeMinutesToDegree(degrees, minutes);
             }
             if (dataSplit.length >= 5 &&
                 (tempValue = Tools.tryParse(dataSplit[3])) != -1
                 && dataSplit[2].toLowerCase().equals("s")){
-            	double minutes = (tempValue % 100);
-             	 int degrees = (int)(tempValue / 100) % 100;
+            	float minutes = (tempValue % 100);
+            	float degrees = (int)(tempValue / 100) % 100;
             	
                 data.attitude.LatitudeN = -Tools.DegreeMinutesToDegree(degrees, minutes);
             }
             if (dataSplit.length >= 7 &&
                 (tempValue = Tools.tryParse(dataSplit[5])) != -1
                 && dataSplit[4].toLowerCase().equals("w")){
-            	double minutes = (tempValue % 100);
-             	int degrees = (int)(tempValue / 100) % 100;
+            	float minutes = (tempValue % 100);
+            	float degrees = (int)(tempValue / 100) % 100;
              	 
                 data.attitude.LongitudeE = -Tools.DegreeMinutesToDegree(degrees, minutes);
             }
             if (dataSplit.length >= 7 &&
                 (tempValue = Tools.tryParse(dataSplit[5])) != -1
                 && dataSplit[4].toLowerCase().equals("e")){
-            	double minutes = (tempValue % 100);
-             	 int degrees = (int)(tempValue / 100) % 100;
+            	float minutes = (tempValue % 100);
+            	float degrees = (int)(tempValue / 100) % 100;
             	
                 data.attitude.LongitudeE = Tools.DegreeMinutesToDegree(degrees, minutes);
             }
@@ -548,7 +548,7 @@ public final class NMEA0183Parser {
         if (dataSplit[0].toLowerCase().contains("mwv"))
         {
             
-        	double tempValue;
+        	float tempValue;
             if(dataSplit[2].toLowerCase().equals("t"))
             {//true wind readings
             	if((tempValue = Tools.tryParse(dataSplit[3])) != -1)

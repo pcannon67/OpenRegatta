@@ -5,15 +5,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class PerformanceDataHelper extends SQLiteOpenHelper {
-	private static PerformanceDataHelper mInstance = null;
+public class DataHelper extends SQLiteOpenHelper {
+	private static DataHelper mInstance = null;
 	
-	private static final String DATABASE_NAME = "thericalperf.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final String DATABASE_NAME = "openregatta.db";
+	private static final int DATABASE_VERSION = 2;
 	
 	public static final String TABLE_NAME = "prediction";
 	
 	public static final String COLUMN_ID = "_id";
+	public static final String COLUMN_BOATID = "_boatid";
 	public static final String COLUMN_TWS = "_tws";
 	public static final String COLUMN_TWA = "_twa";
 	public static final String COLUMN_V = "_v";
@@ -25,11 +26,12 @@ public class PerformanceDataHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_AWA = "_awa";
 	public static final String COLUMN_LEE = "_lee";
 	public static final String COLUMN_SAIL = "_sail";
+	public static final String COLUMN_ISBEST = "_isbest";
 	
 	// Database creation sql statement
-	private static final String DATABASE_CREATE = "create table "
+	private static final String DATABASE_CREATE = "create table if not exists "
 			+ TABLE_NAME + "(" 
-			+ COLUMN_ID + " integer primary key autoincrement, "
+			+ COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ COLUMN_TWS + " FLOAT, "
 			+ COLUMN_TWA + " FLOAT, "
 			+ COLUMN_V + " FLOAT, "
@@ -40,19 +42,21 @@ public class PerformanceDataHelper extends SQLiteOpenHelper {
 			+ COLUMN_AWS + " FLOAT, "
 			+ COLUMN_AWA + " FLOAT, "
 			+ COLUMN_LEE + " FLOAT, "
-			+ COLUMN_SAIL + " FLOAT);";
+			+ COLUMN_SAIL + " FLOAT, "
+			+ COLUMN_BOATID + " INTEGER, "
+			+ COLUMN_ISBEST + " BOOLEAN);";
 	 
-	public PerformanceDataHelper(Context context) {
+	public DataHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
- public static PerformanceDataHelper getInstance(Context ctx) {
+	public static DataHelper getInstance(Context ctx) {
 
 	    // Use the application context, which will ensure that you 
 	    // don't accidentally leak an Activity's context.
 	    // See this article for more information: http://bit.ly/6LRzfx
 	    if (mInstance == null) {
-	      mInstance = new PerformanceDataHelper(ctx.getApplicationContext());
+	      mInstance = new DataHelper(ctx.getApplicationContext());
 	    }
 	    return mInstance;
 	  }
@@ -64,7 +68,7 @@ public class PerformanceDataHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-	  Log.w(PerformanceDataHelper.class.getName(),
+	  Log.w(DataHelper.class.getName(),
 	      "Upgrading database from version " + oldVersion + " to "
 	          + newVersion + ", which will destroy all old data");
 	  db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);

@@ -2,8 +2,8 @@ package com.openregatta.database;
 /**
  * This class stores a row of the performance database
  */
-public class PerformanceRow {
-	private long id;
+public class PerfRow {
+	private int id;
 	private float tws;
 	private float twa;
 	private float v;
@@ -15,16 +15,40 @@ public class PerformanceRow {
 	private float awa;
 	private float lee;
 	private String sail;
+	private boolean isBest;
+	private int boatId;
+	
+	public PerfRow()
+	{}
+	
+	public PerfRow(int id, float tws, float twa, float v, float vmg, float heel, float reef, float flat, float aws, float awa, float lee, String sail, boolean isBest, int boatId)
+	{
+		this.id = id;
+		this.tws = tws;
+		this.twa = twa;
+		this.v = v;
+		this.vmg = vmg;
+		this.heel = heel;
+		this.reef = reef;
+		this.flat = flat;
+		this.aws = aws;
+		this.awa = awa;
+		this.lee = lee;
+		this.sail = sail;
+		this.isBest = isBest;
+		this.boatId = boatId;
+	}
+	
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	/**
@@ -158,6 +182,30 @@ public class PerformanceRow {
 	 */
 	public void setSail(String sail) {
 		this.sail = sail;
+	}
+	/**
+	 * @return the isBest
+	 */
+	public boolean isBest() {
+		return isBest;
+	}
+	/**
+	 * @param isBest the isBest to set
+	 */
+	public void setBest(boolean isBest) {
+		this.isBest = isBest;
+	}
+	/**
+	 * @return the boatId
+	 */
+	public int getBoatId() {
+		return boatId;
+	}
+	/**
+	 * @param boatId the boatId to set
+	 */
+	public void setBoatId(int boatId) {
+		this.boatId = boatId;
 	}
 	
 }

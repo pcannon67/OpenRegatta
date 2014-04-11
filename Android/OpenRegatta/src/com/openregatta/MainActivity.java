@@ -1,27 +1,23 @@
 package com.openregatta;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.openregatta.R;
-import com.openregatta.database.PerformanceDataSource;
-import com.openregatta.fragments.CourseFragment;
+import com.openregatta.database.DataHelper;
+import com.openregatta.database.DataSource;
+import com.openregatta.database.PerfRow;
 import com.openregatta.fragments.DataFragment;
 import com.openregatta.fragments.RegattaFragment;
-import com.openregatta.fragments.StartFragment;
 import com.openregatta.fragments.TargetFragment;
-import com.openregatta.fragments.TimeFragment;
 import com.openregatta.preferences.BoatPreferences;
 import com.openregatta.preferences.NetworkPreferences;
 import com.openregatta.services.NetworkService;
 import com.openregatta.services.NMEADataFrame;
-import com.openregatta.tools.FileDialog;
 
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -44,9 +40,10 @@ import android.content.SharedPreferences;
 
 
 public class MainActivity extends Activity {
-
-	static private final String TAG = "OpenRegatta";
-	static private final int PICKFILE_REQUEST_CODE = 0;
+	
+	static private final int PICK_DATA_FILE_REQUEST_CODE = 0;
+	
+	static private final int BOAT_ID = 367;
 	
 	/** List containing all the fragments that the user can navigate to by sliding left and right */
 	private final List<Fragment> mItems = new ArrayList<Fragment>();
@@ -57,12 +54,12 @@ public class MainActivity extends Activity {
     /** Flag indicating whether we have called bind on the service. */
 	private boolean mIsBound;
     /** Access to performance data storage and practical methods*/
-	private PerformanceDataSource mPerformanceDataSource = null;
-	/** Dialog to select performance data for the boat */
-    private FileDialog mFileDialog = null;
+	private DataSource mPerformanceDataSource = null;
+    /** Best performances upwind and downwind, loaded for the selected boat from the database */
+    private List<PerfRow> bestPerformances = null;
     
 	@Override
-	public void onRestoreInstanceState(Bundle savedInstanceState) {
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 	  super.onRestoreInstanceState(savedInstanceState);
 	  // Restore UI state from the savedInstanceState.
 	  // This bundle has also been passed to onCreate.
@@ -78,11 +75,11 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-        mPerformanceDataSource = new PerformanceDataSource(this);
+        mPerformanceDataSource = new DataSource(this);
         mPerformanceDataSource.open();
         
         if(mPerformanceDataSource.getCount() == 0)
-        {
+        {//if we don't have any performance records, then open the file manager and select a file to be imported
         	Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("file/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -104,20 +101,25 @@ public class MainActivity extends Activity {
             }
 
             try {
-                startActivityForResult(chooserIntent, PICKFILE_REQUEST_CODE);
+                startActivityForResult(chooserIntent, PICK_DATA_FILE_REQUEST_CODE);
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(getApplicationContext(), "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
             }
         }
+        else
+        {
+        	bestPerformances = mPerformanceDataSource.getBestPerformancesForBoat(BOAT_ID);
+        }
         
+       
         //set layout for the main activity
 		setContentView(R.layout.activity_main);
 		
 		//create and add fragments to the application
-		mItems.add(new TimeFragment());
-		mItems.add(new StartFragment());
+		//mItems.add(new TimeFragment());
+		//mItems.add(new StartFragment());
 		mItems.add(new TargetFragment());
-		mItems.add(new CourseFragment());
+		//mItems.add(new CourseFragment());
 		mItems.add(new DataFragment());
 		
 		if(savedInstanceState != null)
@@ -131,12 +133,13 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if(requestCode == PICKFILE_REQUEST_CODE){
+		if(requestCode == PICK_DATA_FILE_REQUEST_CODE){
 			String fileUriString = data.getDataString();
 			Uri fileUri = Uri.parse(fileUriString);
 			Log.d(getClass().getName(), "selected file " + fileUriString);
 	        try{
-	            int insertedRecords = mPerformanceDataSource.LoadFromCSVFile(fileUri);
+	            int insertedRecords = mPerformanceDataSource.insertPolarsFromTSVFile(fileUri);
+	            bestPerformances = mPerformanceDataSource.getBestPerformancesForBoat(BOAT_ID);
 	            Log.d(getClass().getName(), "inserted records " + String.valueOf(insertedRecords));
 	        }
 	        catch(Exception ex)
@@ -166,7 +169,7 @@ public class MainActivity extends Activity {
 	}
 	
 	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
 	  super.onSaveInstanceState(savedInstanceState);
 	  // Save UI state changes to the savedInstanceState.
 	  // This bundle will be passed to onCreate if the process is
@@ -175,7 +178,7 @@ public class MainActivity extends Activity {
 	}
 	
 	@Override
-	public void onStop(){
+	protected void onStop(){
 		super.onStop();
 		
 		SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
@@ -221,7 +224,8 @@ public class MainActivity extends Activity {
 		fragmentTransaction.replace(R.id.fragment_container, mItems.get(frag_index));
 		fragmentTransaction.commit();
 		
-		Log.i(TAG, "fragment transation, frag_index = " + Integer.toString(frag_index));
+		Log.i(DataHelper.class.getName(),
+				"fragment transation, frag_index = " + Integer.toString(frag_index));
 	}
 	
 	public void ShowCurrentFragment()
@@ -233,7 +237,8 @@ public class MainActivity extends Activity {
 		fragmentTransaction.replace(R.id.fragment_container, mItems.get(frag_index));
 		fragmentTransaction.commit();
 		
-		Log.i(TAG, "fragment transation, frag_index = " + Integer.toString(frag_index));
+		Log.i(DataHelper.class.getName(),
+				"fragment transation, frag_index = " + Integer.toString(frag_index));
 	}
 	
 	public void ShowPreviousFragment()
@@ -246,11 +251,15 @@ public class MainActivity extends Activity {
 		fragmentTransaction.replace(R.id.fragment_container, mItems.get(frag_index));
 		fragmentTransaction.commit();
 	
-		Log.i(TAG, "fragment transation, frag_index = " + Integer.toString(frag_index));
+		Log.i(DataHelper.class.getName(),
+				"fragment transation, frag_index = " + Integer.toString(frag_index));
 	}
 	
+	public List<PerfRow> getBestPerformance()
+	{
+		return bestPerformances;
+	}
 	
-
 	 /**
      * Handler of incoming messages from service.
      */
@@ -324,7 +333,7 @@ public class MainActivity extends Activity {
             }
     };
 	
-	 void doBindService() {
+	void doBindService() {
          // Establish a connection with the service. We use an explicit
          // class name because there is no reason to be able to let other
          // applications replace our component.
@@ -335,7 +344,7 @@ public class MainActivity extends Activity {
          }
 	 }
 
-	 void doUnbindService() {
+	void doUnbindService() {
          if (mIsBound) {
                  // If we have received the service, and hence registered with
                  // it, then now is the time to unregister.

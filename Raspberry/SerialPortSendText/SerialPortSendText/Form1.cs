@@ -24,7 +24,7 @@ namespace SerialPortSendText
             _serialPort = new SerialPort();
 
             // Allow the user to set the appropriate properties.
-            _serialPort.PortName = "COM5";
+            _serialPort.PortName = "COM6";
             _serialPort.BaudRate = 4800;
             _serialPort.Parity = Parity.None;
             _serialPort.DataBits = 8;
