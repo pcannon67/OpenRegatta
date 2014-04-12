@@ -13,8 +13,9 @@ namespace SerialPortSendText
 {
     public partial class Form1 : Form
     {
-        static SerialPort _serialPort;
-        static BackgroundWorker _worker;
+        private SerialPort _serialPort;
+        private BackgroundWorker _worker;
+        private Decimal _waitingTime = 2000;
 
         public Form1()
         {
@@ -54,7 +55,7 @@ namespace SerialPortSendText
                     _serialPort.Write(toSend);
                     this.setLabelText(toSend);
                     if (toSend.StartsWith("$IIVTG"))
-                        Thread.Sleep(2500);
+                        Thread.Sleep((int)_waitingTime);
                 }
             }
         }
@@ -74,6 +75,10 @@ namespace SerialPortSendText
             }
             this.label1.Text = p;    
         }
-    }
 
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            _waitingTime = this.numericUpDown1.Value;
+        }
+    }
 }
