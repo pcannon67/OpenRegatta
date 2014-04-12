@@ -73,7 +73,7 @@ public class NetworkService extends Service {
          * Event sent to the clients in order to warn them that new incoming data is available
          * also attach the data object to the Message so clients can update the visuals 
          */
-        public static final int EVENT_DATA_INCOMING = 5;       
+        public static final int EVENT_DATA_INCOMING = 5;     
         
         /**
          * Handler of incoming messages from clients.
@@ -188,30 +188,31 @@ public class NetworkService extends Service {
 			       BufferedReader bufferedReader = new BufferedReader(reader);
 			       
 			       String packagedData = "";
-			   
-		       	for (String data; (data = bufferedReader.readLine()) != null;)
-		       	{
-				   if(!data.equals(""))
-					   packagedData = packagedData.concat(data + "\n");
-					if(packagedData.toLowerCase().contains("rmc")){
-			    	   for (int i = mClients.size() - 1; i >= 0; i--) {
-			               try {
-			                       mClients.get(i).send(
-			                                       Message.obtain(null, EVENT_DATA_INCOMING, 0, 0, NMEA0183Parser.Parse(packagedData)));
-			               } catch (RemoteException e) {
-			                       // The client is dead. Remove it from the list;
-			                       // we are going through the list from back to front
-			                       // so this is safe to do inside the loop.
-			                       mClients.remove(i);
-			               }
-			    	   }
-			    	   packagedData = "";
-			    	   }
-			    	   
-			    	   if(!shouldContinue)
-			    		 break;  
-			       }
-			       s.close();
+				   
+				   	for (String data; (data = bufferedReader.readLine()) != null;)
+				   	{
+					    if(!data.equals(""))
+					    	packagedData = packagedData.concat(data + "\n");
+						if(packagedData.toLowerCase().contains("rmc")){
+							for (int i = mClients.size() - 1; i >= 0; i--) {
+								try {
+									mClients.get(i).send(
+						            Message.obtain(null, EVENT_DATA_INCOMING, 0, 0, NMEA0183Parser.Parse(packagedData)));
+								} 
+								catch (RemoteException e) {
+						                // The client is dead. Remove it from the list;
+										// we are going through the list from back to front
+										// so this is safe to do inside the loop.
+						               mClients.remove(i);
+								}
+						   }
+						   packagedData = "";
+						   }
+							   
+						if(!shouldContinue)
+							break;  
+				   }
+				   s.close();
 			       
         		} catch (IOException e) {
 			       e.printStackTrace();

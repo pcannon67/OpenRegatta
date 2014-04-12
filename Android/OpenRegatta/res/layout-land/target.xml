@@ -11,7 +11,7 @@
         android:layout_weight="1" >
 
         <TextView
-            android:id="@+id/label_target"
+            android:id="@+id/label_target_awa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -21,7 +21,7 @@
             android:textColor="#FFFFFF"/>
 
         <TextView
-            android:id="@+id/textView_target"
+            android:id="@+id/textView_target_awa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -40,7 +40,7 @@
         android:layout_weight="1" >
 
         <TextView
-            android:id="@+id/label_speed"
+            android:id="@+id/label_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -50,7 +50,7 @@
             android:textColor="#FFFFFF"/>
 
         <TextView
-            android:id="@+id/textView_speed"
+            android:id="@+id/textView_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

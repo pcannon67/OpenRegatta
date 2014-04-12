@@ -29,14 +29,14 @@ public final class R {
         public static final int Button02=0x7f0a0001;
         public static final int Button_set_committee=0x7f0a0007;
         public static final int Button_set_start_mark=0x7f0a0005;
-        public static final int boat_settings=0x7f0a003f;
-        public static final int button_minus_min=0x7f0a003e;
-        public static final int button_minus_sec=0x7f0a003d;
-        public static final int button_plus_min=0x7f0a003a;
-        public static final int button_plus_sec=0x7f0a003b;
+        public static final int boat_settings=0x7f0a003b;
+        public static final int button_minus_min=0x7f0a003a;
+        public static final int button_minus_sec=0x7f0a0039;
+        public static final int button_plus_min=0x7f0a0036;
+        public static final int button_plus_sec=0x7f0a0037;
         public static final int button_set_relative=0x7f0a0002;
-        public static final int button_start_stop=0x7f0a0039;
-        public static final int button_start_stop2=0x7f0a003c;
+        public static final int button_start_stop=0x7f0a0035;
+        public static final int button_start_stop2=0x7f0a0038;
         public static final int fragment_container=0x7f0a0000;
         public static final int imageView1=0x7f0a0006;
         public static final int imageView2=0x7f0a0008;
@@ -44,12 +44,10 @@ public final class R {
         public static final int label_boat_length=0x7f0a002d;
         public static final int label_distance=0x7f0a002b;
         public static final int label_sow=0x7f0a0034;
-        public static final int label_speed=0x7f0a0037;
-        public static final int label_target=0x7f0a0035;
         public static final int label_target_awa=0x7f0a0032;
         public static final int label_time=0x7f0a002e;
         public static final int lable_time_seconds=0x7f0a0030;
-        public static final int network_settings=0x7f0a0040;
+        public static final int network_settings=0x7f0a003c;
         public static final int tableRow1=0x7f0a0014;
         public static final int tableRow2=0x7f0a0018;
         public static final int tableRow3=0x7f0a001c;
@@ -87,8 +85,6 @@ public final class R {
         public static final int textViewWPTName=0x7f0a0028;
         public static final int textView_distance=0x7f0a002c;
         public static final int textView_sow=0x7f0a0033;
-        public static final int textView_speed=0x7f0a0038;
-        public static final int textView_target=0x7f0a0036;
         public static final int textView_target_awa=0x7f0a0031;
         public static final int textView_time=0x7f0a002f;
     }
