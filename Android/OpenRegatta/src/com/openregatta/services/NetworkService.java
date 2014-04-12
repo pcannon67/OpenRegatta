@@ -9,7 +9,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.openregatta.MainActivity;
 import com.openregatta.R;

@@ -1,7 +1,6 @@
 package com.openregatta.services;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -46,9 +45,6 @@ public class NMEADataFrame {
 		public float SpeedOverGround = -1;
 	}
 	
-
-		
-
 	public class Wind
 	{
 		/**

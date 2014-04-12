@@ -14,11 +14,13 @@
             android:id="@+id/label_target_awa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/target_awa"
-            android:textSize="60sp" 
-            android:textColor="@color/textColor"/>
+            android:textColor="@color/textColor"
+            android:textSize="60sp" />
 
         <TextView
             android:id="@+id/textView_target_awa"
@@ -26,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="56dp"
+            android:layout_toRightOf="@+id/label_target_awa"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/default_value"
             android:textColor="@color/textColor"
             android:textSize="120sp"
@@ -43,8 +46,10 @@
             android:id="@+id/label_target_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/target_sow"
             android:textColor="@color/textColor"
             android:textSize="60sp" />
@@ -55,7 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="58dp"
+            android:layout_toRightOf="@+id/label_target_sow"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/default_value"
             android:textColor="@color/textColor"
             android:textSize="120sp"

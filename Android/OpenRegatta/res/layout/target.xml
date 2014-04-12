@@ -15,21 +15,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/default_value"
+            android:textColor="@color/textColor"
             android:textSize="120sp"
-            android:textStyle="bold" 
-            android:textColor="@color/textColor"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/label_target_awa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/target_awa"
-            android:textSize="60sp" 
-            android:textColor="@color/textColor"/>
+            android:textColor="@color/textColor"
+            android:textSize="60sp" />
 
     </RelativeLayout>
 
@@ -43,7 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/default_value"
             android:textColor="@color/textColor"
             android:textSize="120sp"
@@ -54,10 +59,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/target_sow"
-            android:textSize="60sp"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/textColor"
+            android:textSize="60sp" />
 
     </RelativeLayout>
 

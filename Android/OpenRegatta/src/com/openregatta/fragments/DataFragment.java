@@ -3,7 +3,6 @@ package com.openregatta.fragments;
 import java.text.SimpleDateFormat;
 
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

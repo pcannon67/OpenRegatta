@@ -3,7 +3,6 @@ package com.openregatta.preferences;
 import com.openregatta.R;
 
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;

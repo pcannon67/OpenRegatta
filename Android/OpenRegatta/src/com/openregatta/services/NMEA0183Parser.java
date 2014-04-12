@@ -1,7 +1,6 @@
 package com.openregatta.services;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.openregatta.tools.Tools;
@@ -51,7 +50,6 @@ public final class NMEA0183Parser {
 				parseMTW(data, sentence);
 				parseVLW(data, sentence);
 				parseVTG(data, sentence);
-				
 			}
 		}
 		

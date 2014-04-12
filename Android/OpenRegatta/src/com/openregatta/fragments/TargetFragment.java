@@ -6,11 +6,13 @@ import java.util.List;
 
 import com.openregatta.MainActivity;
 import com.openregatta.R;
+import com.openregatta.database.DataHelper;
 import com.openregatta.database.PerfRow;
 import com.openregatta.services.NMEADataFrame;
 import com.openregatta.tools.Tools;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +99,10 @@ public class TargetFragment extends RegattaFragment {
 					if(frame.attitude.SpeedOverWater != -1){
 						double percentSow = (Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater) / targetSpeed)*100;
 						sow.setText(String.format("%.0f%%",percentSow));
+						Log.i(TargetFragment.class.getName(), "Calculated SOW, target=" + String.format("%.0f", targetSpeed)
+						+ " Actual=" + String.format("%.0f", Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater))
+						+ " TWS=" + String.format("%.0f",Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed))
+						+ " Orientation=" + (isDownwind?"Downind":"Upwind"));
 					}
 					
 					double slopeAwa = (above.getAwa() - below.getAwa())/(above.getTws()-below.getTws());
@@ -113,11 +119,13 @@ public class TargetFragment extends RegattaFragment {
 						if(differentAwa>0)
 							value = "+" + value;
 						awa.setText(value);
+						Log.i(TargetFragment.class.getName(), "Calculated AWA, target=" + String.format("%.0f", targetAwa)
+								+ " Actual=" + String.format("%.0f", awaCorrected)
+								+ " TWS=" + String.format("%.0f",Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed))
+								+ " Orientation=" + (isDownwind?"Downind":"Upwind"));
 					}
 				}
 			}
 		}
-		
 	}
-	
 }
