@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#000000">
+    android:background="@color/backgroundColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="@string/start" 
-            android:background="#FFFFFF"/>
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"/>"
 
 		<Button
 		    android:id="@+id/button_plus_min"
@@ -26,7 +27,8 @@
 		    android:layout_alignParentLeft="true"
 		    android:layout_alignParentTop="true"
 		    android:text="@string/add_min" 
-		    android:background="#FFFFFF"/>
+		    android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"/>
 
 		<Button
 		    android:id="@+id/button_plus_sec"
@@ -35,7 +37,8 @@
 		    android:layout_alignParentRight="true"
 		    android:layout_alignParentTop="true"
 		    android:text="@string/add_sec" 
-		    android:background="#FFFFFF"/>
+		    android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"/>
 
     </RelativeLayout>
 
@@ -54,7 +57,7 @@
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="120sp"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/textColor" />
 
     </RelativeLayout>
 
@@ -70,7 +73,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="@string/start" 
-            android:background="#FFFFFF"/>
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"/>
 
         <Button
             android:id="@+id/button_minus_sec"
@@ -79,7 +83,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:text="@string/rem_sec" 
-            android:background="#FFFFFF"/>
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"/>
 
         <Button
             android:id="@+id/button_minus_min"
@@ -88,7 +93,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:text="@string/rem_min" 
-            android:background="#FFFFFF"/>
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"/>
 
     </RelativeLayout>
 

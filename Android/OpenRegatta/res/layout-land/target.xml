@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#000000">
+    android:background="@color/backgroundColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_centerVertical="true"
             android:text="@string/target_awa"
             android:textSize="60sp" 
-            android:textColor="#FFFFFF"/>
+            android:textColor="@color/textColor"/>
 
         <TextView
             android:id="@+id/textView_target_awa"
@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="89dp"
-            android:text="@string/default_awa"
-            android:textColor="#FFFFFF"
+            android:layout_marginRight="56dp"
+            android:text="@string/default_value"
+            android:textColor="@color/textColor"
             android:textSize="120sp"
             android:textStyle="bold" />
 
@@ -40,23 +40,24 @@
         android:layout_weight="1" >
 
         <TextView
-            android:id="@+id/label_sow"
+            android:id="@+id/label_target_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/target_sow"
-            android:textSize="60sp" 
-            android:textColor="#FFFFFF"/>
+            android:textColor="@color/textColor"
+            android:textSize="60sp" />
 
         <TextView
-            android:id="@+id/textView_sow"
+            android:id="@+id/textView_target_sow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="@string/default_00.0"
-            android:textColor="#FFFFFF"
+            android:layout_marginRight="58dp"
+            android:text="@string/default_value"
+            android:textColor="@color/textColor"
             android:textSize="120sp"
             android:textStyle="bold" />
 

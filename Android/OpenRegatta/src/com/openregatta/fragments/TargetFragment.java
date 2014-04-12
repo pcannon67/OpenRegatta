@@ -93,7 +93,7 @@ public class TargetFragment extends RegattaFragment {
 					double constantSpeed = below.getV() - slopeSpeed * below.getTws();
 					double targetSpeed = slopeSpeed * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantSpeed;
 				
-					TextView sow = (TextView) getView().findViewById(R.id.textView_sow);
+					TextView sow = (TextView) getView().findViewById(R.id.textView_target_sow);
 					if(frame.attitude.SpeedOverWater != -1){
 						double percentSow = (Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater) / targetSpeed)*100;
 						sow.setText(String.format("%.0f%%",percentSow));

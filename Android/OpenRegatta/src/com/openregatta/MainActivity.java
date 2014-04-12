@@ -32,6 +32,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.UiModeManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -72,8 +73,11 @@ public class MainActivity extends Activity {
 		
 		//removes title bar and set full screen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        UiModeManager mgr = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+        mgr.enableCarMode(0);
+        mgr.setNightMode(UiModeManager.MODE_NIGHT_AUTO);
 		
         mPerformanceDataSource = new DataSource(this);
         mPerformanceDataSource.open();

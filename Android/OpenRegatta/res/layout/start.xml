@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#000000">
+    android:background="@color/backgroundColor">
 
      <RelativeLayout 
         android:layout_width="match_parent" 
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:text="@string/distance_start_line"
             android:textSize="60sp"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/textColor" />
 
     </RelativeLayout>
 
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="@string/default_00.0"
-            android:textColor="#FFFFFF"
+            android:text="@string/default_value"
+            android:textColor="@color/textColor"
             android:textSize="120sp"
             android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:text="@string/boat_lenght_abbrev"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/textColor"
             android:textSize="40sp" />
 
     </RelativeLayout>
@@ -75,8 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="@string/default_00.0"
-            android:textColor="#FFFFFF"
+            android:text="@string/default_value"
+            android:textColor="@color/textColor"
             android:textSize="120sp"
             android:textStyle="bold" />
 
@@ -87,7 +87,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:text="@string/second_abbrev"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/textColor"
             android:textSize="40sp" />
 
     </RelativeLayout>

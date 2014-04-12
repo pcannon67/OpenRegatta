@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="@color/backgroundColor"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/textView1"
-            android:background="#FFFFFF"
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"
             android:text="@string/mark_absolute" />
 
         <Button
@@ -35,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView_upwind_mark"
             android:layout_toRightOf="@+id/textView1"
-            android:background="#FFFFFF"
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"
             android:text="@string/mark_relative" />
 
         <TextView
@@ -45,7 +47,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="@string/upwind_mark_to_set"
-            android:textColor="#FFFFFF" 
+            android:textColor="@color/textColor" 
             android:textSize="20sp"/>
 
     </RelativeLayout>
@@ -61,7 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/imageView1"
-            android:background="#FFFFFF"
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"
             android:text="@string/mark_absolute" />
 
         <Button
@@ -70,7 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/imageView2"
-            android:background="#FFFFFF"
+            android:background="@color/backgroundColor"
+            android:textColor="@color/textColor"
             android:text="@string/mark_absolute" />
 
         <ImageView
@@ -91,7 +95,7 @@
             android:layout_alignBottom="@+id/Button_set_committee"
             android:layout_centerHorizontal="true"
             android:text="@string/start_line_to_set"
-            android:textColor="#FFFFFF" 
+            android:textColor="@color/textColor" 
             android:textSize="20sp"/>
 
         <ImageView
