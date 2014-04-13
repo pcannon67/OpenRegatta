@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:background="@color/backgroundColor"
+    
     android:baselineAligned="false" >
 
     <RelativeLayout
@@ -19,8 +19,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:text="@string/rem_min" 
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"/>
+            
+            />
 
         <Button
             android:id="@+id/button_plus_min"
@@ -30,8 +30,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/add_min" 
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"/>
+            
+            />
 
     </RelativeLayout>
 
@@ -47,8 +47,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="@string/start" 
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"/>
+            
+            />
 
         <Button
             android:id="@+id/button_start_stop2"
@@ -57,8 +57,8 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:text="@string/start" 
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"/>
+            
+            />
 
         <TextView
             android:id="@+id/textView1"
@@ -69,7 +69,7 @@
             android:text="@string/default_timer"
             android:textStyle="bold"
             android:textSize="120sp"
-            android:textColor="@color/textColor" />
+             />
 
     </RelativeLayout>
 
@@ -86,8 +86,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/add_sec" 
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"/>
+            
+            />
 
         <Button
             android:id="@+id/button_minus_sec"
@@ -97,8 +97,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:text="@string/rem_sec" 
-            android:background="@color/backgroundColor"
-            android:textColor="@color/textColor"/>
+            
+            />
 
     </RelativeLayout>
 

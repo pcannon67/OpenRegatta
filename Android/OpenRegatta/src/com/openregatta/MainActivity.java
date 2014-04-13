@@ -1,6 +1,8 @@
 package com.openregatta;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.openregatta.R;
@@ -14,6 +16,7 @@ import com.openregatta.preferences.BoatPreferences;
 import com.openregatta.preferences.NetworkPreferences;
 import com.openregatta.services.NetworkService;
 import com.openregatta.services.NMEADataFrame;
+import com.openregatta.tools.SolarCalculations;
 
 import android.app.Fragment;
 import android.net.Uri;
@@ -58,6 +61,8 @@ public class MainActivity extends Activity {
 	private DataSource mPerformanceDataSource = null;
     /** Best performances upwind and downwind, loaded for the selected boat from the database */
     private List<PerfRow> bestPerformances = null;
+    /** Current theme selected */
+    private int mThemeId = -1;
     
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -75,9 +80,15 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        UiModeManager mgr = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-        mgr.enableCarMode(0);
-        mgr.setNightMode(UiModeManager.MODE_NIGHT_AUTO);
+        
+        //selecting the appropriate theme if needed otherwise try to get appropriate theme
+        if(savedInstanceState != null && savedInstanceState.getInt("mThemeId", -1) != -1) {
+            mThemeId = savedInstanceState.getInt("mThemeId");
+            this.setTheme(mThemeId);
+        }
+        else{
+        	refreshStyleMode();
+        }
 		
         mPerformanceDataSource = new DataSource(this);
         mPerformanceDataSource.open();
@@ -179,6 +190,7 @@ public class MainActivity extends Activity {
 	  // This bundle will be passed to onCreate if the process is
 	  // killed and restarted.
 	  savedInstanceState.putInt("fragment_index", frag_index);
+	  savedInstanceState.putInt("mThemeId", mThemeId);
 	}
 	
 	@Override
@@ -277,7 +289,8 @@ public class MainActivity extends Activity {
                     		 fragment = (RegattaFragment) mItems.get(frag_index);
                 		if((NMEADataFrame) msg.obj != null && fragment != null)
                 			fragment.Update((NMEADataFrame) msg.obj);
-                        break;
+                        refreshStyleMode();
+                		break;
                     default:
                             super.handleMessage(msg);
                     }
@@ -320,10 +333,6 @@ public class MainActivity extends Activity {
                             // disconnected (and then reconnected if it can be restarted)
                             // so there is no need to do anything here.
                     }
-
-                    // As part of the sample, tell the user what happened.
-                    Toast.makeText(MainActivity.this, "Service connected",
-                                    Toast.LENGTH_SHORT).show();
             }
 
             public void onServiceDisconnected(ComponentName className) {
@@ -332,7 +341,7 @@ public class MainActivity extends Activity {
                     mService = null;
 
                     // As part of the sample, tell the user what happened.
-                    Toast.makeText(MainActivity.this, "Service disconnedcted",
+                    Toast.makeText(MainActivity.this, "Service unexpectedly disconnedcted",
                                     Toast.LENGTH_SHORT).show();
             }
     };
@@ -369,4 +378,29 @@ public class MainActivity extends Activity {
                  mIsBound = false;
          }
 	 }
+	
+	void refreshStyleMode(){
+		
+		double lat = 41.85;
+		double lon = -87.649999;
+		
+		Calendar cal = GregorianCalendar.getInstance();
+		
+		double sunHeight = SolarCalculations.CalculateSunHeight(lat, lon, cal);
+		if(sunHeight > 0 && mThemeId != R.style.AppTheme_Daylight)
+		{//daylight mode
+			mThemeId = R.style.AppTheme_Daylight;	
+			this.recreate();
+		}
+		else if (sunHeight < 0 && sunHeight > -18 && mThemeId != R.style.AppTheme_Dusk)
+		{//astronomical twilight, dusk mode
+			mThemeId = R.style.AppTheme_Dusk;
+			this.recreate();
+		}
+		else if(sunHeight < -18 && mThemeId != R.style.AppTheme_Night)
+		{//night mode
+			mThemeId = R.style.AppTheme_Night;
+			this.recreate();
+		}
+	}
 }

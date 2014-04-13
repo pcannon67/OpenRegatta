@@ -11,12 +11,13 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int backgroundColor=0x7f060001;
-        public static final int textColor=0x7f060000;
+        public static final int black=0x7f060000;
+        public static final int red=0x7f060003;
+        public static final int salmon=0x7f060002;
+        public static final int white=0x7f060001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
- Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
@@ -166,23 +167,13 @@ public final class R {
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
-
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
          */
         public static final int AppBaseTheme=0x7f090000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
- Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f090001;
+        public static final int AppTheme_Daylight=0x7f090001;
+        public static final int AppTheme_Dusk=0x7f090002;
+        public static final int AppTheme_Night=0x7f090003;
     }
     public static final class xml {
         public static final int boat_preferences=0x7f040000;

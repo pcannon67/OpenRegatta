@@ -3,7 +3,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" 
-        android:background="@color/backgroundColor">
+        >
 
         <TableRow
             android:id="@+id/tableRow5"
@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_sat_visible"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewSatVisibles"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView19"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_sat_fix"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewSatFix"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
 
         <TableRow
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_date"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewDate"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView27"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_time"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewTime"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
 
         <TableRow
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_lat"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewLAT"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView9"
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_awa"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewAWA"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
 
         <TableRow
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_lon"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewLON"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView10"
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_aws"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewAWS"
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
 
         <TableRow
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_sow"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewSOW"
@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView11"
@@ -189,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_twd"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewTWD"
@@ -197,7 +197,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
 
         <TableRow
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_sog"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewSOG"
@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView12"
@@ -228,7 +228,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_tws"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewTWS"
@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
 
         <TableRow
@@ -251,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_next_wpt"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewWPTName"
@@ -259,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textView23"
@@ -267,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/data_dtw"
-                android:textColor="@color/textColor" />
+                 />
 
             <TextView
                 android:id="@+id/textViewDTW"
@@ -275,6 +275,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/default_value"
-                android:textColor="@color/textColor" />
+                 />
         </TableRow>
     </TableLayout>

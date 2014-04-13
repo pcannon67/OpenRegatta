@@ -121,18 +121,12 @@ public class NetworkService extends Service {
         @Override
         public void onCreate() {
                 mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                // Display a notification about us starting.
-                showNotification(); 
         }
 
         @Override
         public void onDestroy() {
                 // Cancel the persistent notification.
                 mNM.cancel(1);
-
-                // Tell the user we stopped.
-                Toast.makeText(this, "Service stopped", Toast.LENGTH_SHORT).show();
         }
 
         /**
@@ -142,33 +136,6 @@ public class NetworkService extends Service {
         @Override
         public IBinder onBind(Intent intent) {
                 return mMessenger.getBinder();
-        }
-
-        /**
-         * Show a notification while this service is running.
-         */
-        private void showNotification() {
-                // In this sample, we'll use the same text for the ticker and the
-                // expanded notification
-                CharSequence text = "Remote service started";
-
-                // Set the icon, scrolling text and timestamp
-                Notification notification = new Notification(R.drawable.ic_launcher, text,
-                                System.currentTimeMillis());
-
-                // The PendingIntent to launch our activity if the user selects this
-                // notification
-                PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                                new Intent(this, MainActivity.class), 0);
-
-                // Set the info for the views that show in the notification panel.
-                notification.setLatestEventInfo(this, "Remote Service", text,
-                                contentIntent);
-
-                // Send the notification.
-                // We use a string id because it is a unique number. We use it later to
-                // cancel.
-                mNM.notify(1, notification);
         }
         
         class TCPSocketRunnable implements Runnable {
