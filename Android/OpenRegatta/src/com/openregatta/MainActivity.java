@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import com.openregatta.R;
 import com.openregatta.database.DataHelper;
@@ -13,6 +14,7 @@ import com.openregatta.fragments.DataFragment;
 import com.openregatta.fragments.RegattaFragment;
 import com.openregatta.fragments.TargetFragment;
 import com.openregatta.preferences.BoatPreferences;
+import com.openregatta.preferences.DisplayPreferences;
 import com.openregatta.preferences.NetworkPreferences;
 import com.openregatta.services.NetworkService;
 import com.openregatta.services.NMEADataFrame;
@@ -26,6 +28,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
@@ -63,6 +66,20 @@ public class MainActivity extends Activity {
     private List<PerfRow> bestPerformances = null;
     /** Current theme selected */
     private int mThemeId = -1;
+    /** 10 minutes interval for the handler checking the sun's position and adjusting the style */
+    private final int interval = 600000;
+    private Handler handler = new Handler();
+    
+    private Runnable runnable = new Runnable(){
+        public void run() {
+        	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        	float lat = sp.getFloat("lat", (float) 41.850);//get last known position or chicago's location
+    		float lon = sp.getFloat("lon",(float) -87.649);
+    		Calendar cal = GregorianCalendar.getInstance();
+        	refreshStyleMode(lat, lon, cal);
+        	handler.postDelayed(runnable, interval);
+        }
+    };
     
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -87,9 +104,15 @@ public class MainActivity extends Activity {
             this.setTheme(mThemeId);
         }
         else{
-        	refreshStyleMode();
+        	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        	float lat = sp.getFloat("lat", (float) 41.850);//get last known position or chicago's location
+    		float lon = sp.getFloat("lon",(float) -87.649);
+    		Calendar cal = GregorianCalendar.getInstance();
+        	refreshStyleMode(lat, lon, cal);
         }
-		
+        
+        handler.postDelayed(runnable, interval);
+        
         mPerformanceDataSource = new DataSource(this);
         mPerformanceDataSource.open();
         
@@ -226,6 +249,11 @@ public class MainActivity extends Activity {
 	    	fragmentTransaction.replace(R.id.fragment_container, new NetworkPreferences());
 	    	fragmentTransaction.commit();
 	    	break;
+        case (R.id.display_settings):
+	    	fragmentTransaction.addToBackStack(getResources().getString(R.string.preference_display_settings));
+	    	fragmentTransaction.replace(R.id.fragment_container, new DisplayPreferences());
+	    	fragmentTransaction.commit();
+	    	break;
 		}
 		return false;
 	}
@@ -289,7 +317,15 @@ public class MainActivity extends Activity {
                     		 fragment = (RegattaFragment) mItems.get(frag_index);
                 		if((NMEADataFrame) msg.obj != null && fragment != null)
                 			fragment.Update((NMEADataFrame) msg.obj);
-                        refreshStyleMode();
+
+                		//updates last know position for the app
+                		if(((NMEADataFrame) msg.obj).attitude.LongitudeE != -1
+                				&& ((NMEADataFrame) msg.obj).attitude.LatitudeN != -1){
+                			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                			SharedPreferences.Editor editor = sp.edit();
+                			editor.putFloat("lat",((NMEADataFrame) msg.obj).attitude.LatitudeN);
+                			editor.putFloat("lon", ((NMEADataFrame) msg.obj).attitude.LongitudeE);
+                		}
                 		break;
                     default:
                             super.handleMessage(msg);
@@ -379,28 +415,47 @@ public class MainActivity extends Activity {
          }
 	 }
 	
-	void refreshStyleMode(){
+	public void refreshStyleMode(float lat, float lon, Calendar cal){
 		
-		double lat = 41.85;
-		double lon = -87.649999;
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		String displayMode = sp.getString("display_mode", "auto");
 		
-		Calendar cal = GregorianCalendar.getInstance();
-		
-		double sunHeight = SolarCalculations.CalculateSunHeight(lat, lon, cal);
-		if(sunHeight > 0 && mThemeId != R.style.AppTheme_Daylight)
-		{//daylight mode
-			mThemeId = R.style.AppTheme_Daylight;	
-			this.recreate();
+        if(displayMode.equals("auto")){
+			double sunHeight = SolarCalculations.CalculateSunHeight(lat, lon, cal);
+			if(sunHeight > 0 && mThemeId != R.style.AppTheme_Daylight)
+			{//daylight mode
+				mThemeId = R.style.AppTheme_Daylight;	
+				this.recreate();
+			}
+			else if (sunHeight < 0 && sunHeight >= -6 && mThemeId != R.style.AppTheme_Dusk)
+			{//civil dusk
+				mThemeId = R.style.AppTheme_Dusk;
+				this.recreate();
+			}
+			else if(sunHeight < -6 && mThemeId != R.style.AppTheme_Night)
+			{//night mode
+				mThemeId = R.style.AppTheme_Night;
+				this.recreate();
+			}
 		}
-		else if (sunHeight < 0 && sunHeight > -18 && mThemeId != R.style.AppTheme_Dusk)
-		{//astronomical twilight, dusk mode
-			mThemeId = R.style.AppTheme_Dusk;
-			this.recreate();
-		}
-		else if(sunHeight < -18 && mThemeId != R.style.AppTheme_Night)
-		{//night mode
-			mThemeId = R.style.AppTheme_Night;
-			this.recreate();
-		}
+        else{
+        
+        	if(displayMode.equals("day") && mThemeId != R.style.AppTheme_Daylight)
+			{//daylight mode
+				mThemeId = R.style.AppTheme_Daylight;	
+				this.recreate();
+			}
+			else if (displayMode.equals("dusk") && mThemeId != R.style.AppTheme_Dusk)
+			{//astronomical twilight, dusk mode
+				mThemeId = R.style.AppTheme_Dusk;
+				this.recreate();
+			}
+			else if(displayMode.equals("night") && mThemeId != R.style.AppTheme_Night)
+			{//night mode
+				mThemeId = R.style.AppTheme_Night;
+				this.recreate();
+			}
+        }
+        
 	}
 }

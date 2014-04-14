@@ -42,7 +42,7 @@ public class BoatPreferences extends PreferenceFragment {
 	    					return true;
 	    				}
 	    				else
-	    					return false;
+	    					return false; 
 	    			}
 	    			catch(Exception e){
 	    				return false;

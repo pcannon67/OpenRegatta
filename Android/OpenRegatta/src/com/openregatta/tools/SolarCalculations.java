@@ -67,7 +67,7 @@ public class SolarCalculations {
 		else if(solarElevation>-0.575)
 			athmosphericRefraction = 1735+solarElevation*(-518.2+solarElevation*(103.4+solarElevation*(-12.79+solarElevation*0.711)));
 		else
-			athmosphericRefraction = -20.772/Math.toRadians(Math.toRadians(solarElevation));
+			athmosphericRefraction = -20.772/Math.tan(Math.toRadians(solarElevation));
 		athmosphericRefraction /= 3600;
 		
 		double solarElevationCorrected = solarElevation + athmosphericRefraction;

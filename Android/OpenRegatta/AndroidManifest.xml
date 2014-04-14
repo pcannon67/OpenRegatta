@@ -31,7 +31,7 @@
             android:label="@string/boat_settings" 
             android:screenOrientation="nosensor" >
              <intent-filter>
-            <action android:name="com.example.openregatta.BoatPreferences" />
+            <action android:name="com.openregatta.BoatPreferences" />
             <category android:name="android.intent.category.PREFERENCE" />
                     </intent-filter>
         </activity>
@@ -41,7 +41,17 @@
             android:label="@string/network_settings" 
             android:screenOrientation="nosensor">
               <intent-filter>
-            <action android:name="com.example.openregatta.NetworkPreferences" />
+            <action android:name="com.openregatta.NetworkPreferences" />
+            <category android:name="android.intent.category.PREFERENCE"  />
+                  </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.openregatta.DisplayPreferences"
+            android:label="@string/preference_display_settings" 
+            android:screenOrientation="nosensor">
+              <intent-filter>
+            <action android:name="com.openregatta.DisplayPreferences" />
             <category android:name="android.intent.category.PREFERENCE"  />
                   </intent-filter>
         </activity>

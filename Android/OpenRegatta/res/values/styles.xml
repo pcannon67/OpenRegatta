@@ -15,16 +15,25 @@
     <!-- Application theme. -->
     <style name="AppTheme.Daylight" parent="AppBaseTheme">
     	<item name="android:background">@color/white</item>
+    	<item name="@android:panelFullBackground">@color/white</item>
+        <item name="@android:panelColorBackground">@color/white</item>
+        <item name="@android:panelBackground">@color/white</item>
     	<item name="android:textColor">@color/black</item>
     </style>
     
     <style name="AppTheme.Dusk" parent="AppBaseTheme">
         <item name="android:background">@color/black</item>
+        <item name="@android:panelFullBackground">@color/black</item>
+        <item name="@android:panelColorBackground">@color/black</item>
+        <item name="@android:panelBackground">@color/black</item>
     	<item name="android:textColor">@color/salmon</item>
     </style>
     
     <style name="AppTheme.Night" parent="AppBaseTheme">
         <item name="android:background">@color/black</item>
+        <item name="@android:panelFullBackground">@color/black</item>
+        <item name="@android:panelColorBackground">@color/black</item>
+        <item name="@android:panelBackground">@color/black</item>
     	<item name="android:textColor">@color/red</item>
     </style>
    

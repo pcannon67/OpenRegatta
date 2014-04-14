@@ -2,8 +2,10 @@
 <resources>
     <string name="app_name">OpenRegatta</string>
     <string name="title_activity_main">OpenRegatta</string>
-    <string name="boat_settings">Boat Parameters</string>
+    
+    <string name="boat_settings">Boat Settings</string>
     <string name="network_settings">Network Settings</string>
+    <string name="preference_display_settings">Display Settings</string>
     
     <string name="default_value">--</string>
     

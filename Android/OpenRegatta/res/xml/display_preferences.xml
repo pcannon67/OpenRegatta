@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="@string/preference_display_settings"
+        android:key="display_preferences">
+        <ListPreference
+            android:key="display_mode"
+            android:title="preference_display_mode"
+            android:summary="preference_display_mode_summary"
+            android:entries="@array/preference_display_mode_available"
+            android:entryValues="@array/preference_display_mode_values" />
+    </PreferenceCategory>
+</PreferenceScreen>
