@@ -325,6 +325,7 @@ public class MainActivity extends Activity {
                 			SharedPreferences.Editor editor = sp.edit();
                 			editor.putFloat("lat",((NMEADataFrame) msg.obj).attitude.LatitudeN);
                 			editor.putFloat("lon", ((NMEADataFrame) msg.obj).attitude.LongitudeE);
+                			editor.commit();
                 		}
                 		break;
                     default:

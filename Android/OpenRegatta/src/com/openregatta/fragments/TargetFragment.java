@@ -11,7 +11,9 @@ import com.openregatta.database.PerfRow;
 import com.openregatta.services.NMEADataFrame;
 import com.openregatta.tools.Tools;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +30,57 @@ public class TargetFragment extends RegattaFragment {
 	
 	private List<PerfRow> bestPerformances = null;
 	
+	private final String[] options = {"d AWA","% SOW","% VMG"};
+	
+	private int preferedTop = 0;//awa option
+	private int preferedBottom = 1;//sow option
+	
+	private double differentAwa = Double.MIN_VALUE;
+	private double percentSow = Double.MIN_VALUE;
+	private double percentVmg = Double.MIN_VALUE;
+	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.target, container, false);
+        
+        //get best perfromance for the selected boat and database
+        if(bestPerformances == null)
+			bestPerformances = ((MainActivity)getActivity()).getBestPerformance();
+        
+        //get the parameters display from the user preferences
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        preferedTop = sp.getInt("target_topdisplay", 0);//get last known position or chicago's location
+        preferedBottom = sp.getInt("target_bottomdisplay", 1);
+        
+        //set tap listener for top and bottom labels, allow to change what is shown
+        TextView top_label = (TextView) rootView.findViewById(R.id.label_target_top_label);
+        View.OnClickListener topHandler = new View.OnClickListener() {
+            public void onClick(View v) {
+            	preferedTop = (preferedTop+1)%3;
+            	setDisplayValues();
+            	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    			SharedPreferences.Editor editor = sp.edit();
+    			editor.putInt("target_topdisplay", preferedTop);
+    			editor.commit();
+            }
+          };
+        top_label.setOnClickListener(topHandler);
+        
+        TextView bot_label = (TextView) rootView.findViewById(R.id.label_target_bottom_label);
+        View.OnClickListener botHandler = new View.OnClickListener() {
+            public void onClick(View v) {
+            	preferedBottom = (preferedBottom+1)%3;
+            	setDisplayValues();
+            	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    			SharedPreferences.Editor editor = sp.edit();
+    			editor.putInt("target_bottomdisplay", preferedBottom);
+    			editor.commit();
+            }
+          };
+        bot_label.setOnClickListener(botHandler);
+        
         
         super.attachDetector(rootView);
         
@@ -42,8 +90,13 @@ public class TargetFragment extends RegattaFragment {
 	@Override 
 	public void Update(NMEADataFrame frame)
 	{
-		if(bestPerformances == null)
-			bestPerformances = ((MainActivity)getActivity()).getBestPerformance();
+		this.calculateTargets(frame);
+		
+		this.setDisplayValues();
+	}
+	
+	private void calculateTargets(NMEADataFrame frame){
+		
 		if(bestPerformances != null && frame!= null){
 			
 			boolean isDownwind = false;
@@ -91,40 +144,114 @@ public class TargetFragment extends RegattaFragment {
 					 below = new PerfRow(-1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, "", true, -1);
 					
 				if(above != null && below != null){
-					double slopeSpeed = (above.getV() - below.getV())/(above.getTws()-below.getTws());
-					double constantSpeed = below.getV() - slopeSpeed * below.getTws();
-					double targetSpeed = slopeSpeed * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantSpeed;
-				
-					TextView sow = (TextView) getView().findViewById(R.id.textView_target_sow);
+					
 					if(frame.attitude.SpeedOverWater != -1){
-						double percentSow = (Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater) / targetSpeed)*100;
-						sow.setText(String.format("%.0f%%",percentSow));
+						double slopeSpeed = (above.getV() - below.getV())/(above.getTws() - below.getTws());
+						double constantSpeed = below.getV() - slopeSpeed * below.getTws();
+						double targetSpeed = slopeSpeed * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantSpeed;
+
+						percentSow = (Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater) / targetSpeed)*100;
+						
 						Log.i(TargetFragment.class.getName(), "Calculated SOW, target=" + String.format("%.0f", targetSpeed)
 						+ " Actual=" + String.format("%.0f", Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater))
 						+ " TWS=" + String.format("%.0f",Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed))
 						+ " Orientation=" + (isDownwind?"Downind":"Upwind"));
 					}
 					
-					double slopeAwa = (above.getAwa() - below.getAwa())/(above.getTws()-below.getTws());
-					double constantAwa = below.getAwa() - slopeAwa * below.getTws();
-					double targetAwa = slopeAwa * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantAwa;
+					if(frame.wind.TrueWindAngle != -1 && frame.attitude.SpeedOverWater != -1){
+					double slopeSpeed = (above.getV() - below.getV())/(above.getTws() - below.getTws());
+						double constantSpeed = below.getV() - slopeSpeed * below.getTws();
+						double targetSpeed = slopeSpeed * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantSpeed;
+						
+						double slopeTwa = (above.getTwa() - below.getTwa())/(above.getTws() - below.getTws());
+						double constantTwa = below.getTwa() - slopeTwa * below.getTws();
+						double targetTwa = slopeTwa * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantTwa;
+								
+						double twaCorrected = frame.wind.TrueWindAngle;
+						if(twaCorrected > 180)
+							twaCorrected = 360 - twaCorrected;
+						
+						double targetVmg = targetSpeed * Math.sin(targetTwa*2*Math.PI/360);
+						double currentVmg = Tools.MetersSecondToKnots(frame.attitude.SpeedOverWater) * Math.sin(twaCorrected*2*Math.PI/360);
+						
+						percentVmg = (currentVmg/targetVmg)*100;
+						
+						Log.i(TargetFragment.class.getName(), "Calculated VMG, target=" + String.format("%.0f", targetVmg)
+								+ " Actual=" + String.format("%.0f", currentVmg)
+								+ " TWS=" + String.format("%.0f",Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed))
+								+ " Orientation=" + (isDownwind?"Downind":"Upwind"));
+					}
 					
-					TextView awa = (TextView) getView().findViewById(R.id.textView_target_awa);
 					if(frame.wind.ApparentWindAngle != -1){
+						double slopeAwa = (above.getAwa() - below.getAwa())/(above.getTws()-below.getTws());
+						double constantAwa = below.getAwa() - slopeAwa * below.getTws();
+						double targetAwa = slopeAwa * Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed) + constantAwa;
+						
 						double awaCorrected = frame.wind.ApparentWindAngle;
 						if(awaCorrected > 180)
 							awaCorrected = 360 - awaCorrected;
-						double differentAwa = targetAwa - awaCorrected;
-						String value = String.format("%.0f", differentAwa);
-						if(differentAwa>0)
-							value = "+" + value;
-						awa.setText(value);
+						differentAwa = targetAwa - awaCorrected;
 						Log.i(TargetFragment.class.getName(), "Calculated AWA, target=" + String.format("%.0f", targetAwa)
 								+ " Actual=" + String.format("%.0f", awaCorrected)
 								+ " TWS=" + String.format("%.0f",Tools.MetersSecondToKnots(frame.wind.TrueWindSpeed))
 								+ " Orientation=" + (isDownwind?"Downind":"Upwind"));
 					}
 				}
+			}
+		}
+	}
+
+	private void setDisplayValues(){
+		
+		String dAwa = "--";
+		if(differentAwa != Double.MIN_VALUE){
+			dAwa = String.format("%.0f", differentAwa);
+			if((int)differentAwa>0)
+				dAwa = "+" + dAwa;
+		}
+		
+		String pSow = "--";
+		if(percentSow != Double.MIN_VALUE){
+			pSow = String.format("%.0f%%",percentSow);
+		}
+		
+		String pVmg = "--";
+		if(percentVmg != Double.MIN_VALUE){
+			pVmg = String.format("%.0f%%",percentVmg);
+		}
+		
+		
+		//set top display
+		if(getView()!=null){//avoids screen rotation issues
+			TextView top_label = (TextView) getView().findViewById(R.id.label_target_top_label);
+			TextView top_value = (TextView) getView().findViewById(R.id.textView_target_top_value);
+			if(preferedTop == 0){
+				top_label.setText(options[preferedTop]);
+				top_value.setText(dAwa);
+			}
+			else if(preferedTop == 1){
+				top_label.setText(options[preferedTop]);
+				top_value.setText(pSow);
+			}
+			else if(preferedTop == 2){
+				top_label.setText(options[preferedTop]);
+				top_value.setText(pVmg);
+			}
+				
+			//set bottom display
+			TextView bot_label = (TextView) getView().findViewById(R.id.label_target_bottom_label);
+			TextView bot_value = (TextView) getView().findViewById(R.id.textView_target_bottom_value);
+			if(preferedBottom == 0){
+				bot_label.setText(options[preferedBottom]);
+				bot_value.setText(dAwa);
+			}
+			else if(preferedBottom == 1){
+				bot_label.setText(options[preferedBottom]);
+				bot_value.setText(pSow);
+			}
+			else if(preferedBottom == 2){
+				bot_label.setText(options[preferedBottom]);
+				bot_value.setText(pVmg);
 			}
 		}
 	}

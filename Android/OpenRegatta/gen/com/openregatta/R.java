@@ -15,10 +15,23 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int black=0x7f070000;
+        public static final int aqua=0x7f07000a;
+        public static final int black=0x7f070010;
+        public static final int blue=0x7f07000e;
+        public static final int fuchsia=0x7f070002;
+        public static final int gray=0x7f070006;
+        public static final int green=0x7f07000d;
+        public static final int lime=0x7f07000b;
+        public static final int maroon=0x7f070009;
+        public static final int navy=0x7f07000f;
+        public static final int olive=0x7f070007;
+        public static final int purple=0x7f070008;
         public static final int red=0x7f070003;
-        public static final int salmon=0x7f070002;
-        public static final int white=0x7f070001;
+        public static final int salmon=0x7f070004;
+        public static final int silver=0x7f070005;
+        public static final int teal=0x7f07000c;
+        public static final int white=0x7f070000;
+        public static final int yellow=0x7f070001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -54,8 +67,8 @@ public final class R {
         public static final int imageView_upwind_mark=0x7f0c0003;
         public static final int label_boat_length=0x7f0c002d;
         public static final int label_distance=0x7f0c002b;
-        public static final int label_target_awa=0x7f0c0032;
-        public static final int label_target_sow=0x7f0c0034;
+        public static final int label_target_bottom_label=0x7f0c0034;
+        public static final int label_target_top_label=0x7f0c0032;
         public static final int label_time=0x7f0c002e;
         public static final int lable_time_seconds=0x7f0c0030;
         public static final int network_settings=0x7f0c003c;
@@ -95,8 +108,8 @@ public final class R {
         public static final int textViewTime=0x7f0c0013;
         public static final int textViewWPTName=0x7f0c0028;
         public static final int textView_distance=0x7f0c002c;
-        public static final int textView_target_awa=0x7f0c0031;
-        public static final int textView_target_sow=0x7f0c0033;
+        public static final int textView_target_bottom_value=0x7f0c0033;
+        public static final int textView_target_top_value=0x7f0c0031;
         public static final int textView_time=0x7f0c002f;
     }
     public static final class layout {
